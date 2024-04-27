@@ -1,6 +1,7 @@
 import ModeToggle from "./ModeToggle";
 import ScrollBar from "./ScrollBar";
 import AnimatedTextWord from "./AnimatedTextWord";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import "./titanonefont.css";
 import "./waveShadow.css";
 
@@ -10,9 +11,13 @@ export default function Header(){
     return(
         <> 
             <ScrollBar />
-            <div className="bg-cyan-500 p-4
-                            dark:bg-cyan-950">
+            <div className="bg-[#ffffff75] p-4
+                            dark:bg-[#140b0b6c] fixed rounded-full z-40 m-5 flex gap-5">
                 <ModeToggle />
+                <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
             </div>
             <header className="flex flex-col justify-center w-full bg-gradient-to-b from-cyan-500 to-cyan-700 font-white text-white p-[90px]
                                 dark:from-cyan-950 dark:to-cyan-800">
