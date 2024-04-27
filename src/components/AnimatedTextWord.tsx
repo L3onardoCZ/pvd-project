@@ -10,7 +10,7 @@ interface Props {
 const AnimatedTextWord: React.FC<Props> = ({ text }) => {
   const words = text.split(" ");
 
-  // Variants for Container of words.
+
   const container = {
     hidden: { opacity: 0 },
     visible: (i: number = 1) => ({
@@ -19,7 +19,7 @@ const AnimatedTextWord: React.FC<Props> = ({ text }) => {
     }),
   };
 
-  // Variants for each word.
+
   const child = {
     visible: {
       opacity: 1,
