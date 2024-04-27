@@ -1,6 +1,12 @@
+
+import { motion } from "framer-motion";
+
+
 export default function Typography(){
     return(
+        
         <div className="px-20">
+
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
             The Joke Tax Chronicles
             </h1>
