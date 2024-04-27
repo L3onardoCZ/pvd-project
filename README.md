@@ -1,6 +1,7 @@
 ## PSD - Psaní všemi deseti projekt
 
 credits:
+---------------
 
 Leon Suchý
 
