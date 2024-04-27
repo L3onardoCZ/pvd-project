@@ -2,6 +2,22 @@ import ModeToggle from "./ModeToggle";
 import ScrollBar from "./ScrollBar";
 import AnimatedTextWord from "./AnimatedTextWord";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  Menubar,
+  MenubarCheckboxItem,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
+
 import "./titanonefont.css";
 import "./waveShadow.css";
 
@@ -15,11 +31,21 @@ export default function Header(){
                             dark:bg-[#140b0b6c] fixed rounded-full z-40 m-5 flex gap-5">
                 <ModeToggle />
                 <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage src="https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
+                <Menubar>
+                    <MenubarMenu>
+                        <MenubarTrigger>Menu</MenubarTrigger>
+                        <MenubarContent>
+                            <a href="#header"><MenubarItem>Domů</MenubarItem></a>
+                            <MenubarItem disabled>Můj účet</MenubarItem>
+                            <MenubarItem>Psát</MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                </Menubar>
             </div>
-            <header className="flex flex-col justify-center w-full bg-gradient-to-b from-cyan-500 to-cyan-700 font-white text-white p-[90px]
+            <header id="header" className="flex flex-col justify-center w-full bg-gradient-to-b from-cyan-500 to-cyan-700 font-white text-white p-[90px]
                                 dark:from-cyan-950 dark:to-cyan-800">
                     <div className="mt-[200px] tracking-widest font-medium text-9xl first">
                         <AnimatedTextWord text="WEB PROJEKT"/>
