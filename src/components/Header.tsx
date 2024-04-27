@@ -1,4 +1,5 @@
 import ModeToggle from "./ModeToggle"
+import "./titanonefont.css";
 
 export default function Header(){
     return(
@@ -8,7 +9,7 @@ export default function Header(){
             </div>
             <header className="flex flex-col justify-center w-full bg-gradient-to-b from-cyan-500 to-cyan-700 font-white text-white p-[90px]
                                 dark:from-cyan-950 dark:to-cyan-800">
-                    <h1 className="mt-[200px] tracking-widest font-medium text-8xl">
+                    <h1 className="mt-[200px] tracking-widest font-medium text-9xl">
                         WEB PROJEKT
                     </h1>
                     <p className="font-light mt-4 text-xl">Created by: Leon Suchý, Vojtěch Reiss, Rostislav Kupstov</p>
