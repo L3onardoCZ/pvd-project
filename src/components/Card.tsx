@@ -1,13 +1,14 @@
 import React from 'react';
+import "./card.css";
 
 interface CardProps {
-  heading: String;
-  paragraph: String;
+  heading: string;
+  paragraph: string;
 }
 
 const Card: React.FC<CardProps> = ({ heading, paragraph }) => {
   return (
-    <div className="border-solid m-10">
+    <div className="div">
       <h2>{heading}</h2>
       <p>{paragraph}</p>
     </div>
