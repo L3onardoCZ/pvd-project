@@ -1,7 +1,7 @@
-## PSD - Psaní všemi deseti projekt
+# PSD - Psaní všemi deseti projekt
 
-credits:
----------------
+## credits:
+
 
 Leon Suchý
 
