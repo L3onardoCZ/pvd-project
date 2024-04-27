@@ -9,4 +9,3 @@ Vojtěch Reiss
 
 Rostislav Kupstov
 
-test webhooku
