@@ -7,7 +7,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ heading, paragraph }) => {
   return (
-    <div>
+    <div className="border-solid m-10">
       <h2>{heading}</h2>
       <p>{paragraph}</p>
     </div>
