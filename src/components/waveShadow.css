@@ -1,0 +1,7 @@
+.headerWave{
+    filter: drop-shadow(-1px 15px 5px #00000062);
+}
+
+.footerWave{
+    filter: drop-shadow(-1px -15px 5px #00000062);
+}
