@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import "./textLeftRight.css";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
+import AnimatedTextWord from "./AnimatedTextWord";
 
 export default function Typography() {
   const [ref1, inView1] = useInView({
@@ -34,7 +35,7 @@ export default function Typography() {
             transition={{ type: "spring", stiffness: 120, duration: 0.5 }}
             className="textLeft h-32 text-right p-4"
           >
-            <h3>Lorem ipsum</h3>
+            <h3 className="font-bold">Lorem ipsum</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Laboriosam eveniet mollitia aliquid cum voluptatem consequatur,
@@ -49,7 +50,7 @@ export default function Typography() {
             transition={{ type: "spring", stiffness: 120, duration: 0.5 }}
             className="textRight mt-40 h-32 p-4"
           >
-            <h3>Lorem ipsum</h3>
+            <h3 className="font-bold">Lorem ipsum</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Laboriosam eveniet mollitia aliquid cum voluptatem consequatur,
@@ -68,7 +69,7 @@ export default function Typography() {
             transition={{ type: "spring", stiffness: 120, duration: 0.5 }}
             className="textLeft h-32 text-right p-4"
           >
-            <h3>Lorem ipsum</h3>
+            <h3 className="font-bold">Lorem ipsum</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Laboriosam eveniet mollitia aliquid cum voluptatem consequatur,
@@ -83,7 +84,7 @@ export default function Typography() {
             transition={{ type: "spring", stiffness: 120, duration: 0.5 }}
             className="textRight mt-40 h-32 p-4"
           >
-            <h3>Lorem ipsum</h3>
+            <h3 className="font-bold">Lorem ipsum</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Laboriosam eveniet mollitia aliquid cum voluptatem consequatur,

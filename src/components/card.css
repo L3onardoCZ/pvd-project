@@ -2,12 +2,12 @@
     border: 2px solid;
     padding: 20px;
     margin: 20px;
-    background-color: #155e75;
+    background-color: #088db64d;
     border-radius: 20px;
     width: 400px;
     color: white; 
     filter: drop-shadow(0px 0px 15px #0000007a);
-    border: none;
+    border: 3px solid white;
 }
 
 .div h2{
