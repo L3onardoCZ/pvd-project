@@ -26,10 +26,7 @@ import {
 export default function ActionWindow(){
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
-    const[mujUcetModalIsOpen, setMujUcetModalIsOpen] = useState(false);
 
-    const openMujUcetModal = () => setMujUcetModalIsOpen(true);
-    const closeMujUcetModal = () => setMujUcetModalIsOpen(false);
 
     return(
         <>
@@ -45,7 +42,7 @@ export default function ActionWindow(){
                         <MenubarTrigger>Menu</MenubarTrigger>
                         <MenubarContent>
                             <Link href="./"><MenubarItem>Domů</MenubarItem></Link>
-                            <Link href="./account">{(isLoggedIn !== null) ? (<MenubarItem onClick={openMujUcetModal}>Můj účet</MenubarItem>) : (<MenubarItem disabled>Můj účet</MenubarItem>)}</Link>
+                            {(isLoggedIn !== null) ? (<Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>) : (<MenubarItem disabled>Můj účet</MenubarItem>)}
                             <MenubarItem>Psát</MenubarItem>
                         </MenubarContent>
                     </MenubarMenu>
