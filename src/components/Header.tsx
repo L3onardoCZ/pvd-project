@@ -39,7 +39,7 @@ export default function Header(){
         <> 
             <ScrollBar />
             <ActionWindow/>
-            <header id="header" className="flex flex-col justify-center w-full bg-gradient-to-b from-cyan-500 to-cyan-700 font-white text-white p-[90px]
+            <header className="flex flex-col justify-center w-full bg-gradient-to-b from-cyan-500 to-cyan-700 font-white text-white p-[90px]
                                 dark:from-cyan-950 dark:to-cyan-800">
                     <div className="mt-[200px] tracking-widest font-medium text-9xl first">
                         <AnimatedTextWord text="WEB PROJEKT"/>
