@@ -18,6 +18,7 @@ import {
   import { useState } from "react";
   import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
   import ModeToggle from "./ModeToggle";
+  import Link from 'next/link'
 
 
 
@@ -43,8 +44,8 @@ export default function ActionWindow(){
                     <MenubarMenu>
                         <MenubarTrigger>Menu</MenubarTrigger>
                         <MenubarContent>
-                            <a href="#header"><MenubarItem>Domů</MenubarItem></a>
-                            {(isLoggedIn !== null) ? (<MenubarItem onClick={openMujUcetModal}>Můj účet</MenubarItem>) : (<MenubarItem disabled>Můj účet</MenubarItem>)}
+                            <Link href="./"><MenubarItem>Domů</MenubarItem></Link>
+                            <Link href="./account">{(isLoggedIn !== null) ? (<MenubarItem onClick={openMujUcetModal}>Můj účet</MenubarItem>) : (<MenubarItem disabled>Můj účet</MenubarItem>)}</Link>
                             <MenubarItem>Psát</MenubarItem>
                         </MenubarContent>
                     </MenubarMenu>
