@@ -4,7 +4,7 @@ import ModeToggle from "./ModeToggle";
 import ScrollBar from "./ScrollBar";
 import AnimatedTextWord from "./AnimatedTextWord";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Modal from "./modal";
+import Modal from "./Modal";
 import { useState } from "react";
 import {
   Menubar,
@@ -29,6 +29,8 @@ import "./waveShadow.css";
 
 export default function Header(){
 
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+
     const[mujUcetModalIsOpen, setMujUcetModalIsOpen] = useState(false);
 
     const openMujUcetModal = () => setMujUcetModalIsOpen(true);
@@ -49,7 +51,7 @@ export default function Header(){
                         <MenubarTrigger>Menu</MenubarTrigger>
                         <MenubarContent>
                             <a href="#header"><MenubarItem>Domů</MenubarItem></a>
-                            <MenubarItem onClick={openMujUcetModal}>Můj účet</MenubarItem>
+                            {(isLoggedIn !== null) ? (<MenubarItem onClick={openMujUcetModal}>Můj účet</MenubarItem>) : (<MenubarItem disabled>Můj účet</MenubarItem>)}
                             <MenubarItem>Psát</MenubarItem>
                         </MenubarContent>
                     </MenubarMenu>
