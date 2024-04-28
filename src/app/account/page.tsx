@@ -1,11 +1,10 @@
-import Header from "@/components/Header"
+import SmallHeader from "@/components/SmallHeader";
 
 
 export default function account(){
     return(
         <>
-
-            <Header/>
+            <SmallHeader/>
         </>
     )
 }

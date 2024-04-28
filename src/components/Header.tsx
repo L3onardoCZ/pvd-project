@@ -21,7 +21,7 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-
+import ActionWindow from "./ActionWindow";
 import "./titanonefont.css";
 import "./waveShadow.css";
 
@@ -39,24 +39,7 @@ export default function Header(){
     return(
         <> 
             <ScrollBar />
-            <div className="bg-[#ffffff75] p-4
-                            dark:bg-[#140b0b6c] fixed rounded-full z-40 m-5 flex gap-5">
-                <ModeToggle />
-                <Avatar>
-                    <AvatarImage src="https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <Menubar>
-                    <MenubarMenu>
-                        <MenubarTrigger>Menu</MenubarTrigger>
-                        <MenubarContent>
-                            <a href="#header"><MenubarItem>Domů</MenubarItem></a>
-                            {(isLoggedIn !== null) ? (<MenubarItem onClick={openMujUcetModal}>Můj účet</MenubarItem>) : (<MenubarItem disabled>Můj účet</MenubarItem>)}
-                            <MenubarItem>Psát</MenubarItem>
-                        </MenubarContent>
-                    </MenubarMenu>
-                </Menubar>
-            </div>
+            <ActionWindow/>
             <header id="header" className="flex flex-col justify-center w-full bg-gradient-to-b from-cyan-500 to-cyan-700 font-white text-white p-[90px]
                                 dark:from-cyan-950 dark:to-cyan-800">
                     <div className="mt-[200px] tracking-widest font-medium text-9xl first">
