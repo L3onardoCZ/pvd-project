@@ -85,5 +85,6 @@ body {
                     linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 4px),
                     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 4px);
   background-size: 35px 35px; 
+  background-attachment: fixed;
 
 }
