@@ -7,6 +7,7 @@ import CardSection from "../components/CardSection";
 import Typography from "../components/Typography";
 
 
+
 export default function Home() {
   return (
     <>
