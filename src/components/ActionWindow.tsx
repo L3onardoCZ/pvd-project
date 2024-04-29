@@ -41,7 +41,7 @@ export default function ActionWindow(){
                         <MenubarTrigger>Menu</MenubarTrigger>
                         <MenubarContent>
                             <Link href="./"><MenubarItem>Domů</MenubarItem></Link>
-                            {(sessionStorage.getItem("isLoggedIn") !== null) ? (<Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>) : (<MenubarItem disabled>Můj účet</MenubarItem>)}
+                            <Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>
                             <MenubarItem>Psát</MenubarItem>
                         </MenubarContent>
                     </MenubarMenu>
