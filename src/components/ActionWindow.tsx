@@ -24,7 +24,6 @@ import {
 
 
 export default function ActionWindow(){
-    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
 
 
@@ -42,7 +41,7 @@ export default function ActionWindow(){
                         <MenubarTrigger>Menu</MenubarTrigger>
                         <MenubarContent>
                             <Link href="./"><MenubarItem>Domů</MenubarItem></Link>
-                            {(isLoggedIn !== null) ? (<Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>) : (<MenubarItem disabled>Můj účet</MenubarItem>)}
+                            {(sessionStorage.getItem("isLoggedIn") !== null) ? (<Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>) : (<MenubarItem disabled>Můj účet</MenubarItem>)}
                             <MenubarItem>Psát</MenubarItem>
                         </MenubarContent>
                     </MenubarMenu>
