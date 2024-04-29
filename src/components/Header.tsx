@@ -28,8 +28,6 @@ import "./waveShadow.css";
 
 export default function Header(){
 
-    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
-
     const[mujUcetModalIsOpen, setMujUcetModalIsOpen] = useState(false);
 
     const openMujUcetModal = () => setMujUcetModalIsOpen(true);
