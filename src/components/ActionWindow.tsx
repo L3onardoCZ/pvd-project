@@ -15,17 +15,37 @@ import {
     MenubarSubTrigger,
     MenubarTrigger,
   } from "@/components/ui/menubar";
-  import { useState } from "react";
+  import { useState, useEffect } from "react";
   import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
   import ModeToggle from "./ModeToggle";
-  import Link from 'next/link'
+  import Link from 'next/link';
+  import axios from "axios";
 
 
 
 
 export default function ActionWindow(){
 
+    const[isLoggedIn, setIsLoggedIn] = useState(false);
 
+    useEffect(() => {
+        axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php")
+            .then(function(response) {
+                console.log(response.data);
+                if(response.data != false) {
+                    setIsLoggedIn(true);
+                    console.log(isLoggedIn);
+                } else {
+                    setIsLoggedIn(false);
+                    console.log(isLoggedIn);
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+                setIsLoggedIn(false);
+                console.log(isLoggedIn);
+            })
+    }, []);
 
     return(
         <>
@@ -40,6 +60,7 @@ export default function ActionWindow(){
                     <MenubarMenu>
                         <MenubarTrigger>Menu</MenubarTrigger>
                         <MenubarContent>
+                            {(isLoggedIn == true) ? (<MenubarItem>Odhlásit se</MenubarItem>) : (<MenubarItem>Přihlásit se</MenubarItem>)}
                             <Link href="./"><MenubarItem>Domů</MenubarItem></Link>
                             <Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>
                             <MenubarItem>Psát</MenubarItem>
