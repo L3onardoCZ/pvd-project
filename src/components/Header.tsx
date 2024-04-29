@@ -27,11 +27,6 @@ import "./waveShadow.css";
 
 
 export default function Header(){
-
-    const[mujUcetModalIsOpen, setMujUcetModalIsOpen] = useState(false);
-
-    const openMujUcetModal = () => setMujUcetModalIsOpen(true);
-    const closeMujUcetModal = () => setMujUcetModalIsOpen(false);
     
     return(
         <> 
