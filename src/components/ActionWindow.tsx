@@ -20,6 +20,7 @@ import {
   import ModeToggle from "./ModeToggle";
   import Link from 'next/link';
   import axios from "axios";
+import { link } from "fs";
 
 
 
@@ -60,7 +61,7 @@ export default function ActionWindow(){
                     <MenubarMenu>
                         <MenubarTrigger>Menu</MenubarTrigger>
                         <MenubarContent>
-                            {(isLoggedIn == true) ? (<MenubarItem>Odhlásit se</MenubarItem>) : (<MenubarItem>Přihlásit se</MenubarItem>)}
+                            {(isLoggedIn == true) ? (<MenubarItem>Odhlásit se</MenubarItem>) : (<Link href="./login"><MenubarItem>Přihlásit se</MenubarItem></Link>)}
                             <Link href="./"><MenubarItem>Domů</MenubarItem></Link>
                             <Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>
                             <MenubarItem>Psát</MenubarItem>
