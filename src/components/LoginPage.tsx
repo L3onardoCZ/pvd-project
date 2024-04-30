@@ -2,48 +2,80 @@
 
 import { Button } from "@/components/ui/button"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function LoginPage() {
+
+  const[isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+      axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php")
+          .then(function(response) {
+              console.log(response.data);
+              if(response.data != false) {
+                  setIsLoggedIn(true);
+                  console.log(isLoggedIn);
+              } else {
+                  setIsLoggedIn(false);
+                  console.log(isLoggedIn);
+              }
+          })
+          .catch(function(error) {
+              console.log(error);
+              setIsLoggedIn(false);
+              console.log(isLoggedIn);
+          })
+  }, []);
+  
   return (
-    <div className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden">
-      <div className="w-full m-auto bg-white lg:max-w-lg">
-        <Card>
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl text-center">Přihlášení</CardTitle>
-            <CardDescription className="text-center">
-              Zadejte svůj e-mail a heslo pro přihlášení
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="" />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Heslo</Label>
-              <Input id="password" type="password" />
-            </div>
-          </CardContent>
-          <CardFooter className="flex flex-col">
-            <Button className="w-full">Přihlásit se</Button>
-            <p className="mt-2 text-xs text-center text-gray-700">
-              {" "}
-              Nemáte ještě účet?{" "}
-              <span className=" text-blue-600 hover:underline">Zaregistrujte se</span>
-            </p>
-          </CardFooter>
-        </Card>
-      </div>
-    </div>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="border-none h-fit">{(isLoggedIn == false ? "Přihlásit se" : "Odhlásit se")}</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Přihlásit se</DialogTitle>
+          <DialogDescription>
+            Make changes to your profile here. Click save when you're done.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              Name
+            </Label>
+            <Input
+              id="name"
+              defaultValue="Pedro Duarte"
+              className="col-span-3"
+            />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="username" className="text-right">
+              Username
+            </Label>
+            <Input
+              id="username"
+              defaultValue="@peduarte"
+              className="col-span-3"
+            />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button type="submit">Save changes</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }

@@ -20,33 +20,13 @@ import {
   import ModeToggle from "./ModeToggle";
   import Link from 'next/link';
   import axios from "axios";
-import { link } from "fs";
+ import { link } from "fs";
+ import LoginPage from "./LoginPage";
 
 
 
 
 export default function ActionWindow(){
-
-    const[isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php")
-            .then(function(response) {
-                console.log(response.data);
-                if(response.data != false) {
-                    setIsLoggedIn(true);
-                    console.log(isLoggedIn);
-                } else {
-                    setIsLoggedIn(false);
-                    console.log(isLoggedIn);
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-                setIsLoggedIn(false);
-                console.log(isLoggedIn);
-            })
-    }, []);
 
     return(
         <>
@@ -61,11 +41,13 @@ export default function ActionWindow(){
                     <MenubarMenu>
                         <MenubarTrigger>Menu</MenubarTrigger>
                         <MenubarContent>
-                            {(isLoggedIn == true) ? (<MenubarItem>Odhlásit se</MenubarItem>) : (<Link href="./login"><MenubarItem>Přihlásit se</MenubarItem></Link>)}
                             <Link href="./"><MenubarItem>Domů</MenubarItem></Link>
                             <Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>
                             <MenubarItem>Psát</MenubarItem>
                         </MenubarContent>
+                    </MenubarMenu>
+                    <MenubarMenu>
+                        <LoginPage />
                     </MenubarMenu>
                 </Menubar>
             </div>
