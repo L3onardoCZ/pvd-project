@@ -17,6 +17,25 @@ import { useEffect, useState } from "react";
 
 export default function LoginPage() {
 
+  const[email, setEmail] = useState("");
+  const[heslo, setHeslo] = useState("");
+
+  const handleLogin = () => {
+
+    let data = {
+      "email": email,
+      "heslo": heslo
+    }
+    
+    axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php", data)
+    .then(function(response) {
+        console.log(response.data);
+    })
+    .catch(function(error) {
+        console.log(error);
+    })
+  }
+
   const[isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -60,6 +79,7 @@ export default function LoginPage() {
               placeholder="jan.novak@gmail.com"
               className="col-span-3"
               type="e-mail"
+              onChange={(event) => setEmail(event.target.value)}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -71,11 +91,12 @@ export default function LoginPage() {
               placeholder="Heslo"
               className="col-span-3"
               type="password"
+              onChange={(event) => setHeslo(event.target.value)}
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button type="submit" onSubmit={handleLogin}>Přihlásit se</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

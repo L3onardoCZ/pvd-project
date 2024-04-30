@@ -39,7 +39,7 @@ export default function ActionWindow(){
                 </Avatar>
                 <Menubar>
                     <MenubarMenu>
-                        <MenubarTrigger>Menu</MenubarTrigger>
+                        <MenubarTrigger className="cursor-pointer">Menu</MenubarTrigger>
                         <MenubarContent>
                             <Link href="./"><MenubarItem>Domů</MenubarItem></Link>
                             <Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>
