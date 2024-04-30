@@ -45,8 +45,6 @@ export default function ActionWindow(){
                             <Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>
                             <MenubarItem>Psát</MenubarItem>
                         </MenubarContent>
-                    </MenubarMenu>
-                    <MenubarMenu>
                         <LoginPage />
                     </MenubarMenu>
                 </Menubar>
