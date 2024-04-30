@@ -33,8 +33,8 @@ function BackgroundLetters(): JSX.Element {
 
   return (
     <div className="background-letters">
-      {Array.from({ length:150 }).map((_, index) => {
-        const randomScale = getRandomNumberInRange(0.2, 1); 
+      {Array.from({ length:80 }).map((_, index) => {
+        const randomScale = getRandomNumberInRange(0.4, 1); 
         const randomYOffset = getRandomNumberInRange(-50, 50); 
         const randomXOffset = getRandomNumberInRange(-50, 50); 
         
@@ -52,9 +52,12 @@ function BackgroundLetters(): JSX.Element {
               translateX: translateX,
             }}
             ref={ref}
-            initial={{y: 100, opacity: 0 }}
-            animate={{y: inView ? 0 : 100,opacity: inView ? 0.2 : 0 }}
-            transition={{ type: "spring", stiffness: 1.5, duration: 9999, dumping: 10 }}
+            initial={{y: 200, opacity: 0 }}
+            animate={{y: inView ? 0 : 200, opacity: inView ? 0.2 : 0 }}
+            transition={{
+              y: { duration: 30, repeat: Infinity, repeatType: "reverse" }, // Nekonečná animace s reverzním opakováním
+            }}
+
           >
             {getRandomLetter()}
           </motion.p>
