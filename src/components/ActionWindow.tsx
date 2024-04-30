@@ -1,4 +1,4 @@
-
+"use client"
 
 import {
     Menubar,
@@ -22,15 +22,27 @@ import {
   import axios from "axios";
  import { link } from "fs";
  import LoginPage from "./LoginPage";
+ import { useInView } from "react-intersection-observer";
+import { motion } from "framer-motion";
 
 
 
 
 export default function ActionWindow(){
+    const [ref, inView] = useInView({
+        triggerOnce: true,
+        threshold: 1,
+      });
 
     return(
         <>
-        <div className="bg-[#ffffff75] p-4
+        <motion.div 
+        ref={ref}
+        initial={{x: 100, opacity: 0 }}
+        animate={{x: inView ? 0 : -100,opacity: inView ? 1 : 0 }}
+        transition={{ type: "spring", stiffness: 50, duration: 0.5 }}
+        
+        className="bg-[#ffffff75] p-4
                             dark:bg-[#140b0b6c] fixed rounded-full z-40 m-5 flex gap-5">
                 <ModeToggle />
                 <Avatar>
@@ -48,7 +60,7 @@ export default function ActionWindow(){
                         <LoginPage />
                     </MenubarMenu>
                 </Menubar>
-            </div>
+            </motion.div>
         </>
     )
 }
