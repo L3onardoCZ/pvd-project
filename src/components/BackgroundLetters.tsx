@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import "./backgroundletters.css";
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456798";
@@ -25,6 +26,10 @@ function BackgroundLetters(): JSX.Element {
   const translateY = useTransform(scrollY, [0, decisiveHeight], [0, -200])
   const translateX = useTransform(scrollY, [0, decisiveHeight], [0, 20])
 
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 1,
+  });
 
   return (
     <div className="background-letters">
@@ -46,6 +51,10 @@ function BackgroundLetters(): JSX.Element {
               translateY: translateY,
               translateX: translateX,
             }}
+            ref={ref}
+            initial={{y: 100, opacity: 0 }}
+            animate={{y: inView ? 0 : 100,opacity: inView ? 0.2 : 0 }}
+            transition={{ type: "spring", stiffness: 1.5, duration: 9999, dumping: 10 }}
           >
             {getRandomLetter()}
           </motion.p>
