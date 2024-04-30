@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react";
-import { motion, useViewportScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import "./backgroundletters.css";
 
@@ -16,15 +16,15 @@ function getRandomNumberInRange(min: number, max: number): number {
 }
 
 function BackgroundLetters(): JSX.Element {
-  const { scrollY } = useViewportScroll();
-  const decisiveHeight = Math.max(
-    document.body.offsetHeight,
-    document.documentElement.scrollHeight
-  );
-  const rotate = useTransform(scrollY, [0, decisiveHeight], [0, 100]);
-  const opacity = useTransform(scrollY, [0, decisiveHeight], [0.1, 0.4]);
-  const translateY = useTransform(scrollY, [0, decisiveHeight], [0, -200])
-  const translateX = useTransform(scrollY, [0, decisiveHeight], [0, 20])
+
+  const { scrollY } = useScroll();
+
+    const rotate = useTransform(scrollY, [0, window.outerHeight], [0, 100]);
+    const opacity = useTransform(scrollY, [0, window.outerHeight], [0.1, 0.4]);
+    const translateY = useTransform(scrollY, [0, window.outerHeight], [0, -200])
+    const translateX = useTransform(scrollY, [0, window.outerHeight], [0, 20])
+
+  
 
   const [ref, inView] = useInView({
     triggerOnce: true,
