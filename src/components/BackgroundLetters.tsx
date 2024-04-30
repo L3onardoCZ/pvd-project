@@ -16,34 +16,36 @@ function getRandomNumberInRange(min: number, max: number): number {
 
 function BackgroundLetters(): JSX.Element {
   const { scrollY } = useViewportScroll();
+  const decisiveHeight = Math.max(
+    document.body.offsetHeight,
+    document.documentElement.scrollHeight
+  );
+  const rotate = useTransform(scrollY, [0, decisiveHeight], [0, 100]);
+  const opacity = useTransform(scrollY, [0, decisiveHeight], [0, 0.2]);
+  const translateY = useTransform(scrollY, [0, decisiveHeight], [0, -500])
+  const translateX = useTransform(scrollY, [0, decisiveHeight], [0, 100])
 
-  const rotate = useTransform(scrollY, [0, document.documentElement.clientHeight], [0, 100]);
-  const opacity = useTransform(scrollY, [0, document.documentElement.clientHeight], [0, 0.3]);
-  const translateY = useTransform(scrollY, [0, document.documentElement.clientHeight], [0, 200])
-
-  const rotateSpring = { type: "spring", stiffness: 50 };
-  const opacityBounce = { type: "spring", stiffness: 300, damping: 10 };
 
   return (
     <div className="background-letters">
       {Array.from({ length: 100 }).map((_, index) => {
-        const randomScale = getRandomNumberInRange(0.5, 1.5); // Náhodná velikost
-        const randomYOffset = getRandomNumberInRange(-50, 50); // Náhodný posun nahoru a dolů
-        const randomXOffset = getRandomNumberInRange(-50, 50); // Náhodný posun doleva a doprava
+        const randomScale = getRandomNumberInRange(0.5, 1.5); 
+        const randomYOffset = getRandomNumberInRange(-50, 50); 
+        const randomXOffset = getRandomNumberInRange(-50, 50); 
         
 
         return (
           <motion.p
             key={index}
             style={{
-              fontSize: `${randomScale * 3}rem`, // Změna velikosti podle náhodného faktoru
-              top: `${50 + randomYOffset}vh`, // Náhodný posun nahoru a dolů
-              left: `${50 + randomXOffset}vw`, // Náhodný posun doleva a doprava
-              rotate: rotate, // Otáčení během scrollování
-              opacity: opacity, // Změna opacity během scrollování
+              fontSize: `${randomScale * 3}rem`, 
+              top: `${80 + randomYOffset}vh`, 
+              left: `${50 + randomXOffset}vw`, 
+              rotate: rotate, 
+              opacity: opacity, 
               translateY: translateY,
+              translateX: translateX,
             }}
-            transition={{ rotate: rotateSpring, opacity: opacityBounce }}
           >
             {getRandomLetter()}
           </motion.p>
