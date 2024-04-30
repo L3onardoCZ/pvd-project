@@ -47,28 +47,30 @@ export default function LoginPage() {
         <DialogHeader>
           <DialogTitle>Přihlásit se</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            Vyplň e-mail a heslo.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
-              Name
+              E-mail
             </Label>
             <Input
-              id="name"
-              defaultValue="Pedro Duarte"
+              id="e-mail"
+              placeholder="jan.novak@gmail.com"
               className="col-span-3"
+              type="e-mail"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="text-right">
-              Username
+              Heslo
             </Label>
             <Input
-              id="username"
-              defaultValue="@peduarte"
+              id="heslo"
+              placeholder="Heslo"
               className="col-span-3"
+              type="password"
             />
           </div>
         </div>
