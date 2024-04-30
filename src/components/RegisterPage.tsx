@@ -14,64 +14,28 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import RegisterPage from "./RegisterPage";
 
-export default function LoginPage() {
+export default function RegisterPage() {
 
   const[email, setEmail] = useState("");
   const[heslo, setHeslo] = useState("");
   const[jmeno, setJmeno] = useState("");
   const[prijmeni, setPrijmeni] = useState("");
+  
+  const handleRegistrace = () => {
 
-  const handleLogin = () => {
-
-    let data = {
-      "email": email,
-      "heslo": heslo
-    }
-    
-    axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php", data)
-    .then(function(response) {
-        console.log(response.data);
-        setJmeno(response.data.jmeno);
-        setPrijmeni(response.data.prijmeni);
-    })
-    .catch(function(error) {
-        console.log(error);
-    })
   }
-
-  const[isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-      axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php")
-          .then(function(response) {
-              console.log(response.data);
-              if(response.data != false) {
-                  setIsLoggedIn(true);
-                  console.log(isLoggedIn);
-              } else {
-                  setIsLoggedIn(false);
-                  console.log(isLoggedIn);
-              }
-          })
-          .catch(function(error) {
-              console.log(error);
-              setIsLoggedIn(false);
-              console.log(isLoggedIn);
-          })
-  }, []);
   
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="border-none h-fit">{(isLoggedIn == false ? "Přihlásit se" : jmeno + " " + prijmeni)}</Button>
+        <Button variant="outline" className="border-none h-auto bg-red-600 hover:bg-red-800">Registrace</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Přihlásit se</DialogTitle>
+          <DialogTitle>Registrace</DialogTitle>
           <DialogDescription>
-            Vyplň e-mail a heslo.
+            Vyplň všechna pole níže.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -99,10 +63,33 @@ export default function LoginPage() {
               onChange={(event) => setHeslo(event.target.value)}
             />
           </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              Jméno:
+            </Label>
+            <Input
+              id="jmeno"
+              placeholder="Jan"
+              className="col-span-3"
+              type="text"
+              onChange={(event) => setJmeno(event.target.value)}
+            />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              Příjmení
+            </Label>
+            <Input
+              id="Příjmení"
+              placeholder="Novák"
+              className="col-span-3"
+              type="text"
+              onChange={(event) => setPrijmeni(event.target.value)}
+            />
+          </div>
         </div>
         <DialogFooter>
-          <RegisterPage />
-          <Button className="grow" type="submit" onSubmit={handleLogin}>Přihlásit se</Button>
+          <Button>Zaregistrovat se</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
