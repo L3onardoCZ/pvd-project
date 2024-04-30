@@ -22,13 +22,13 @@ function BackgroundLetters(): JSX.Element {
   );
   const rotate = useTransform(scrollY, [0, decisiveHeight], [0, 100]);
   const opacity = useTransform(scrollY, [0, decisiveHeight], [0, 0.2]);
-  const translateY = useTransform(scrollY, [0, decisiveHeight], [0, -500])
+  const translateY = useTransform(scrollY, [0, decisiveHeight], [0, -450])
   const translateX = useTransform(scrollY, [0, decisiveHeight], [0, 100])
 
 
   return (
     <div className="background-letters">
-      {Array.from({ length: 100 }).map((_, index) => {
+      {Array.from({ length: 25 }).map((_, index) => {
         const randomScale = getRandomNumberInRange(0.5, 1.5); 
         const randomYOffset = getRandomNumberInRange(-50, 50); 
         const randomXOffset = getRandomNumberInRange(-50, 50); 
