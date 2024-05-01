@@ -17,11 +17,12 @@ import { useEffect, useState } from "react";
 import RegisterPage from "./RegisterPage";
 
 export default function LoginPage() {
-
+  
+  const[isLoggedIn, setIsLoggedIn] = useState(false);
   const[email, setEmail] = useState("");
   const[heslo, setHeslo] = useState("");
-  const[jmeno, setJmeno] = useState(sessionStorage.getItem("jmeno"));
-  const[prijmeni, setPrijmeni] = useState(sessionStorage.getItem("prijmeni"));
+  const[jmeno, setJmeno] = useState("");
+  const[prijmeni, setPrijmeni] = useState("");
 
   const handleLogin = () => {
 
@@ -41,7 +42,11 @@ export default function LoginPage() {
     })
   }
   
-  const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+ useEffect(() => {
+  if(typeof sessionStorage.getItem("isLoggedIn") === "undefined" || sessionStorage.getItem("isLoggedIn") === "false") {
+    setIsLoggedIn(false);
+   } else setIsLoggedIn(true);
+ }, []);
 
   useEffect(() => {
       axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php")
@@ -51,7 +56,7 @@ export default function LoginPage() {
                   sessionStorage.setItem("isLoggedIn", "true");
                   console.log(isLoggedIn);
               } else {
-                  sessionStorage.setItem("isLoggedIn", "false");
+                  sessionStorage.setItem("isLoggedIn", "");
                   console.log(isLoggedIn);
               }
           })
@@ -65,7 +70,7 @@ export default function LoginPage() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-      {(isLoggedIn == "false" ? (<Button variant="outline" className="border-none h-fit">Přihlásit se</Button>) : (<Button variant="outline" className="border-none h-fit">{jmeno + " " + prijmeni}</Button>))}
+      {(isLoggedIn == false ? (<Button variant="outline" className="border-none h-fit">Přihlásit se</Button>) : (<Button variant="outline" className="border-none h-fit">{jmeno + " " + prijmeni}</Button>))}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
