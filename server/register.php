@@ -1,5 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:5173");
+header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Credentials: true');
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -10,16 +10,22 @@ header('Content-Type: text/html; charset=utf-8');
 <?php
 include("db_connect.php");
 
+$stmt = $conn->prepare("SELECT emailUzivatel FROM uzivatele WHERE emailUzivatel= ?");
+$stmt->bind_param("s", $email);
+
 $data = json_decode(file_get_contents("php://input"), true);
 $jmeno = $data["jmeno"];
 $prijmeni = $data["prijmeni"];
 $email = $data["email"];
 $heslo = password_hash($data["heslo"], PASSWORD_DEFAULT);
 
-$sql = "SELECT emailUzivatel FROM uzivatele WHERE emailUzivatel='$email'";
-$result = $conn->query($sql);
+$stmt->execute();
+
+
+$result = $stmt->get_result();
 $row = $result->fetch_assoc();
 
+$stmt->close();
 $conn->close();
 
 
@@ -29,18 +35,14 @@ if(!empty($data["jmeno"]) && !empty($data["prijmeni"]) && !empty($data["email"])
     include("db_connect.php");
     
     // Create connection
-    $sql = "INSERT INTO `uzivatele` (`idUzivatel`, `jmenoUzivatel`, `prijmeniUzivatel`, `emailUzivatel`, `hesloUzivatel`) VALUES (NULL, '$jmeno', '$prijmeni', '$email', '$heslo')";
+   $stmt = $conn->prepare("INSERT INTO `uzivatele` (`idUzivatel`, `jmenoUzivatel`, `prijmeniUzivatel`, `emailUzivatel`, `hesloUzivatel`) VALUES (NULL, ?, ?, ?, ?)");
+   $stmt->bind_param("ssss", $jmeno, $prijmeni, $email, $heslo);
+   $stmt->execute();
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Data byla úspěšně zapsána do databáze.";
-    } else {
-        echo "Něco se pokazilo.";
-    }
+    echo "Data byla úspěšně zapsána do databáze.";
 
+    $stmt->close();
     $conn->close();
-} else {
-    $data = false;
-    echo json_encode($data);
-}
+} else echo false;
 
 ?>

@@ -20,8 +20,8 @@ export default function LoginPage() {
 
   const[email, setEmail] = useState("");
   const[heslo, setHeslo] = useState("");
-  const[jmeno, setJmeno] = useState("");
-  const[prijmeni, setPrijmeni] = useState("");
+  const[jmeno, setJmeno] = useState(sessionStorage.getItem("jmeno"));
+  const[prijmeni, setPrijmeni] = useState(sessionStorage.getItem("prijmeni"));
 
   const handleLogin = () => {
 
@@ -30,34 +30,34 @@ export default function LoginPage() {
       "heslo": heslo
     }
     
-    axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php", data)
+    axios.post("http://localhost:80/pvd-project/server/login.php", data)
     .then(function(response) {
         console.log(response.data);
-        setJmeno(response.data.jmeno);
-        setPrijmeni(response.data.prijmeni);
+        sessionStorage.setItem("jmeno", response.data.jmeno);
+        sessionStorage.setItem("prijmeni", response.data.prijmeni);
     })
     .catch(function(error) {
         console.log(error);
     })
   }
-
-  const[isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  const isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
   useEffect(() => {
       axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php")
           .then(function(response) {
               console.log(response.data);
               if(response.data != false) {
-                  setIsLoggedIn(true);
+                  sessionStorage.setItem("isLoggedIn", "true");
                   console.log(isLoggedIn);
               } else {
-                  setIsLoggedIn(false);
+                  sessionStorage.setItem("isLoggedIn", "false");
                   console.log(isLoggedIn);
               }
           })
           .catch(function(error) {
               console.log(error);
-              setIsLoggedIn(false);
+              sessionStorage.setItem("isLoggedIn", "false");
               console.log(isLoggedIn);
           })
   }, []);
@@ -65,7 +65,7 @@ export default function LoginPage() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="border-none h-fit">{(isLoggedIn == false ? "Přihlásit se" : jmeno + " " + prijmeni)}</Button>
+      {(isLoggedIn == "false" ? (<Button variant="outline" className="border-none h-fit">Přihlásit se</Button>) : (<Button variant="outline" className="border-none h-fit">{jmeno + " " + prijmeni}</Button>))}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -102,7 +102,7 @@ export default function LoginPage() {
         </div>
         <DialogFooter>
           <RegisterPage />
-          <Button className="grow" type="submit" onSubmit={handleLogin}>Přihlásit se</Button>
+          <Button className="grow" type="submit" onClick={handleLogin}>Přihlásit se</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
