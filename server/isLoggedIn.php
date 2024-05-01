@@ -10,8 +10,8 @@ session_start();
 
 <?php
 
-if(isset($_SESSION["idUzivatel"])) {
-    echo true;
-} else echo false;
+if(isset($_SESSION['idUzivatel'])) {
+    echo json_encode(true);
+} else echo json_encode(false);
 
 ?>
