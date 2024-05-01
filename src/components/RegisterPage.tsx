@@ -23,20 +23,7 @@ export default function RegisterPage() {
   const[prijmeni, setPrijmeni] = useState("");
   
   const handleRegistrace = () => {
-    let data = {
-      "email": email,
-      "heslo": heslo,
-      "jmeno": jmeno,
-      "prijmeni": prijmeni
-    }
 
-    axios.post("http://localhost:80/pvd-project/server/register.php", data)
-      .then(function(response) {
-        console.log(response.data);
-      })
-      .catch(function(error) {
-        console.log(error);
-      })
   }
   
   return (
@@ -102,7 +89,7 @@ export default function RegisterPage() {
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={handleRegistrace}>Zaregistrovat se</Button>
+          <Button>Zaregistrovat se</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
