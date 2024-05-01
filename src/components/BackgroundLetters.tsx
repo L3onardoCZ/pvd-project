@@ -31,7 +31,7 @@ function BackgroundLetters(): JSX.Element {
   const [randomLetters, setRandomLetters] = useState<string[]>([]);
 
   useEffect(() => {
-    const generatedLetters = Array.from({ length: 80 }, () => getRandomLetter());
+    const generatedLetters = Array.from({ length: 50 }, () => getRandomLetter());
     setRandomLetters(generatedLetters);
   }, []); 
 
@@ -50,6 +50,8 @@ function BackgroundLetters(): JSX.Element {
             initial={{y: 100, opacity: 0 }}
             animate={{y: inView ? 0 : 100,opacity: inView ? 1 : 0 }}
             transition={{ type: "spring", stiffness: 100, duration: 3 }}
+
+
           >
             <motion.p
               key={index}
@@ -62,7 +64,7 @@ function BackgroundLetters(): JSX.Element {
                 opacity: opacity,
                 translateY: translateY,
                 translateX: translateX,
-                
+
               }}
               ref={ref}
               initial={{ y: 200, opacity: 0.01}}
@@ -70,6 +72,8 @@ function BackgroundLetters(): JSX.Element {
               transition={{
                 y: { duration: 30, repeat: Infinity, repeatType: "reverse" },
               }}
+
+
             >
               {letter}
             </motion.p>
