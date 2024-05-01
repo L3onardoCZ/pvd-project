@@ -33,7 +33,7 @@ function BackgroundLetters(): JSX.Element {
   useEffect(() => {
     const generatedLetters = Array.from({ length: 80 }, () => getRandomLetter());
     setRandomLetters(generatedLetters);
-  }, []); // Použijeme useEffect pro generování písmen pouze při prvotním načtení komponenty
+  }, []); 
 
   return (
     <div className="background-letters">
