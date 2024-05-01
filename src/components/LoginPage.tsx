@@ -20,8 +20,9 @@ export default function LoginPage() {
 
   const[email, setEmail] = useState("");
   const[heslo, setHeslo] = useState("");
-  const[jmeno, setJmeno] = useState(sessionStorage.getItem("jmeno"));
-  const[prijmeni, setPrijmeni] = useState(sessionStorage.getItem("prijmeni"));
+  const[jmeno, setJmeno] = useState("");
+  const[prijmeni, setPrijmeni] = useState("");
+  const[isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = () => {
 
@@ -35,29 +36,29 @@ export default function LoginPage() {
         console.log(response.data);
         sessionStorage.setItem("jmeno", response.data.jmeno);
         sessionStorage.setItem("prijmeni", response.data.prijmeni);
+        setJmeno(response.data.jmeno);
+        setPrijmeni(response.data.prijmeni);
     })
     .catch(function(error) {
         console.log(error);
     })
   }
-  
-  const isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
   useEffect(() => {
       axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php")
           .then(function(response) {
               console.log(response.data);
-              if(response.data != false) {
-                  sessionStorage.setItem("isLoggedIn", "true");
+              if(response.data == true) {
+                  setIsLoggedIn(true);
                   console.log(isLoggedIn);
               } else {
-                  sessionStorage.setItem("isLoggedIn", "false");
+                  setIsLoggedIn(false);
                   console.log(isLoggedIn);
               }
           })
           .catch(function(error) {
               console.log(error);
-              sessionStorage.setItem("isLoggedIn", "false");
+              setIsLoggedIn(false);
               console.log(isLoggedIn);
           })
   }, []);
@@ -65,7 +66,7 @@ export default function LoginPage() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-      {(isLoggedIn == "false" ? (<Button variant="outline" className="border-none h-fit">Přihlásit se</Button>) : (<Button variant="outline" className="border-none h-fit">{jmeno + " " + prijmeni}</Button>))}
+      {((isLoggedIn == false) ? (<Button variant="outline" className="border-none h-fit">Přihlásit se</Button>) : (<Button variant="outline" className="border-none h-fit">{jmeno + " " + prijmeni}</Button>))}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
