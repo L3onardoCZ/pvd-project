@@ -18,7 +18,7 @@ function getRandomNumberInRange(min: number, max: number): number {
 function BackgroundLetters(): JSX.Element {
   const { scrollY } = useScroll();
 
-  const rotate = useTransform(scrollY, [0, 1000], [0, 100]);
+
   const opacity = useTransform(scrollY, [0, 1000], [0.1, 0.4]);
   const translateY = useTransform(scrollY, [0, 1000], [0, -300]);
   const translateX = useTransform(scrollY, [0, 1000], [0, 20]);
@@ -38,31 +38,42 @@ function BackgroundLetters(): JSX.Element {
   return (
     <div className="background-letters">
       {randomLetters.map((letter, index) => {
-        const randomScale = getRandomNumberInRange(0.4, 1);
+        const randomScale = getRandomNumberInRange(0.4, 0.8);
         const randomYOffset = getRandomNumberInRange(-50, 50);
         const randomXOffset = getRandomNumberInRange(-50, 50);
+        const randomRotate = getRandomNumberInRange(-360, 360);
+        const randomColor = getRandomNumberInRange(180, 360);
 
         return (
-          <motion.p
-            key={index}
-            style={{
-              fontSize: `${randomScale * 3}rem`,
-              top: `${80 + randomYOffset}vh`,
-              left: `${50 + randomXOffset}vw`,
-              rotate: rotate,
-              opacity: opacity,
-              translateY: translateY,
-              translateX: translateX,
-            }}
+          <motion.div
             ref={ref}
-            initial={{ y: 200, opacity: 0 }}
-            animate={{ y: inView ? 0 : 200, opacity: inView ? 0.2 : 0 }}
-            transition={{
-              y: { duration: 30, repeat: Infinity, repeatType: "reverse" },
-            }}
+            initial={{y: 100, opacity: 0 }}
+            animate={{y: inView ? 0 : 100,opacity: inView ? 1 : 0 }}
+            transition={{ type: "spring", stiffness: 100, duration: 3 }}
           >
-            {letter}
-          </motion.p>
+            <motion.p
+              key={index}
+              style={{
+                fontSize: `${randomScale * 3}rem`,
+                top: `${80 + randomYOffset}vh`,
+                left: `${50 + randomXOffset}vw`,
+                rotate: `${randomRotate}deg`,
+                color: `rgb(180, 180, ${randomColor})`,
+                opacity: opacity,
+                translateY: translateY,
+                translateX: translateX,
+                
+              }}
+              ref={ref}
+              initial={{ y: 200, opacity: 0,}}
+              animate={{ y: -200, opacity: 0.2}}
+              transition={{
+                y: { duration: 30, repeat: Infinity, repeatType: "reverse" },
+              }}
+            >
+              {letter}
+            </motion.p>
+          </motion.div>
         );
       })}
     </div>
