@@ -48,7 +48,7 @@ function BackgroundLetters(): JSX.Element {
           <motion.div
             ref={ref}
             initial={{y: 100, opacity: 0 }}
-            animate={{y: inView ? 0 : 100,opacity: inView ? 1 : 0 }}
+            animate={{y: inView ? 0 : 100,opacity: inView ? 0.4 : 0.35 }}
             transition={{ type: "spring", stiffness: 100, duration: 3 }}
 
 
