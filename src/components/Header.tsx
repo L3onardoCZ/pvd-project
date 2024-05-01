@@ -23,6 +23,7 @@ import {
 import ActionWindow from "./ActionWindow";
 import "./titanonefont.css";
 import "./waveShadow.css";
+import "./header.css";
 
 
 
