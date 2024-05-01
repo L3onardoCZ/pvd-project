@@ -41,7 +41,7 @@ function BackgroundLetters(): JSX.Element {
         const randomScale = getRandomNumberInRange(0.4, 0.8);
         const randomYOffset = getRandomNumberInRange(-50, 50);
         const randomXOffset = getRandomNumberInRange(-50, 50);
-        const randomRotate = getRandomNumberInRange(-360, 360);
+        const randomRotate = getRandomNumberInRange(-90, 90);
         const randomColor = getRandomNumberInRange(180, 360);
 
         return (
@@ -65,8 +65,8 @@ function BackgroundLetters(): JSX.Element {
                 
               }}
               ref={ref}
-              initial={{ y: 200, opacity: 0,}}
-              animate={{ y: -200, opacity: 0.2}}
+              initial={{ y: 200, opacity: 0.01}}
+              animate={{ y: -200, opacity: 0.1}}
               transition={{
                 y: { duration: 30, repeat: Infinity, repeatType: "reverse" },
               }}
