@@ -18,6 +18,26 @@ import RegisterPage from "./RegisterPage";
 
 export default function LoginPage() {
 
+useEffect(() => {
+      axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php")
+          .then(function(response) {
+              console.log(response.data);
+              if(response.data == true) {
+                  setIsLoggedIn(true);
+                  console.log(isLoggedIn);
+              } else {
+                  setIsLoggedIn(false);
+                  console.log(isLoggedIn);
+              }
+          })
+          .catch(function(error) {
+              console.log(error);
+              setIsLoggedIn(false);
+              console.log(isLoggedIn);
+          })
+  }, []);
+
+  
   const[email, setEmail] = useState("");
   const[heslo, setHeslo] = useState("");
   const[jmeno, setJmeno] = useState("");
@@ -44,24 +64,7 @@ export default function LoginPage() {
     })
   }
 
-  useEffect(() => {
-      axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php")
-          .then(function(response) {
-              console.log(response.data);
-              if(response.data == true) {
-                  setIsLoggedIn(true);
-                  console.log(isLoggedIn);
-              } else {
-                  setIsLoggedIn(false);
-                  console.log(isLoggedIn);
-              }
-          })
-          .catch(function(error) {
-              console.log(error);
-              setIsLoggedIn(false);
-              console.log(isLoggedIn);
-          })
-  }, []);
+  
   
   return (
     <Dialog>

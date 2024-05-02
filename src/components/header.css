@@ -1,5 +1,5 @@
 header {
     -webkit-mask:
-      radial-gradient(circle at 50% 20%, transparent 4%, black 5%) center / 10% 90%;
+      radial-gradient(circle at 50% 20%, transparent 5%, black 5.5%) center / 10% 90%;
     
   }
