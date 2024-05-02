@@ -31,7 +31,7 @@ function BackgroundLetters(): JSX.Element {
   const [randomLetters, setRandomLetters] = useState<string[]>([]);
 
   useEffect(() => {
-    const generatedLetters = Array.from({ length: 50 }, () => getRandomLetter());
+    const generatedLetters = Array.from({ length: 70 }, () => getRandomLetter());
     setRandomLetters(generatedLetters);
   }, []); 
 
