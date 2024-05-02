@@ -70,10 +70,12 @@ export default function Typography() {
             className="textLeft h-32 text-right p-4"
           >
             <h3 className="font-bold">Lorem ipsum</h3>
-            <AnimatedTextWord text="Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Laboriosam eveniet mollitia aliquid cum voluptatem consequatur,
               magni animi dolorum soluta aspernatur, consequuntur nihil natus
-              quos autem tempore, nobis a. Quia, numquam?"/>
+              quos autem tempore, nobis a. Quia, numquam?
+            </p>
           </motion.div>
           <motion.div
             ref={ref4}
