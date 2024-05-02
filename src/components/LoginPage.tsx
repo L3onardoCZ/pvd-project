@@ -38,8 +38,8 @@ export default function LoginPage() {
 
   const[email, setEmail] = useState("");
   const[heslo, setHeslo] = useState("");
-  const[jmeno, setJmeno] = useState("");
-  const[prijmeni, setPrijmeni] = useState("");
+  const[jmeno, setJmeno] = useState(sessionStorage.getItem("jmeno"));
+  const[prijmeni, setPrijmeni] = useState(sessionStorage.getItem("prijmeni"));
   const isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
   const handleLogin = () => {
@@ -69,7 +69,7 @@ export default function LoginPage() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-      {((isLoggedIn == "false") ? (<Button variant="outline" className="border-none h-fit">Přihlásit se</Button>) : (<Button variant="outline" className="border-none h-fit">{jmeno + " " + prijmeni}</Button>))}
+      <Button variant="outline" className="border-none h-fit">{jmeno + " " + prijmeni}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
