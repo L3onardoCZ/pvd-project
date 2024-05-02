@@ -63,10 +63,15 @@ export default function LoginPage() {
     axios.post("http://localhost:80/pvd-project/server/login.php", data)
     .then(function(response) {
         console.log(response.data);
-        sessionStorage.setItem("jmeno", response.data.jmeno);
-        sessionStorage.setItem("prijmeni", response.data.prijmeni);
-        alert("Přihlášení proběhlo úspěšně.");
-        window.location.reload();
+        if(response.data !== false) {
+          sessionStorage.setItem("jmeno", response.data.jmeno);
+          sessionStorage.setItem("prijmeni", response.data.prijmeni);
+          alert("Přihlášení proběhlo úspěšně.");
+          window.location.reload();
+        } else {
+          alert("Přihlášení se nezdařilo.");
+          window.location.reload();
+        }
     })
     .catch(function(error) {
         console.log(error);
