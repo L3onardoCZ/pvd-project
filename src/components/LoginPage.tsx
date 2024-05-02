@@ -17,32 +17,30 @@ import { useEffect, useState } from "react";
 import RegisterPage from "./RegisterPage";
 
 export default function LoginPage() {
-
-useEffect(() => {
-      axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php")
-          .then(function(response) {
-              console.log(response.data);
-              if(response.data == true) {
-                  setIsLoggedIn(true);
-                  console.log(isLoggedIn);
-              } else {
-                  setIsLoggedIn(false);
-                  console.log(isLoggedIn);
-              }
-          })
-          .catch(function(error) {
-              console.log(error);
-              setIsLoggedIn(false);
-              console.log(isLoggedIn);
-          })
-  }, []);
+ 
+  axios.defaults.withCredentials = true;
 
   
+  useEffect(() => {
+        axios.post("http://localhost:80/pvd-project/server/isLoggedIn.php")
+            .then(function(response) {
+                console.log(response.data);
+                sessionStorage.setItem("isLoggedIn", String(response.data));
+                console.log(sessionStorage.getItem("isLoggedIn"));
+            })
+            .catch(function(error) {
+                console.log(error);
+                sessionStorage.setItem("isLoggedIn", "false");
+                console.log(sessionStorage.getItem("isLoggedIn"));
+            })
+    }, []);
+
+
   const[email, setEmail] = useState("");
   const[heslo, setHeslo] = useState("");
   const[jmeno, setJmeno] = useState("");
   const[prijmeni, setPrijmeni] = useState("");
-  const[isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
   const handleLogin = () => {
 
@@ -56,11 +54,13 @@ useEffect(() => {
         console.log(response.data);
         sessionStorage.setItem("jmeno", response.data.jmeno);
         sessionStorage.setItem("prijmeni", response.data.prijmeni);
-        setJmeno(response.data.jmeno);
-        setPrijmeni(response.data.prijmeni);
+        alert("Přihlášení proběhlo úspěšně.");
+        window.location.reload();
     })
     .catch(function(error) {
         console.log(error);
+        alert("Něco se pokazilo.");
+        window.location.reload();
     })
   }
 
@@ -69,7 +69,7 @@ useEffect(() => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-      {((isLoggedIn == false) ? (<Button variant="outline" className="border-none h-fit">Přihlásit se</Button>) : (<Button variant="outline" className="border-none h-fit">{jmeno + " " + prijmeni}</Button>))}
+      {((isLoggedIn == "false") ? (<Button variant="outline" className="border-none h-fit">Přihlásit se</Button>) : (<Button variant="outline" className="border-none h-fit">{jmeno + " " + prijmeni}</Button>))}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
