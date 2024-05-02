@@ -19,7 +19,7 @@ function BackgroundLetters(): JSX.Element {
   const { scrollY } = useScroll();
 
 
-  const opacity = useTransform(scrollY, [0, 1000], [0.1, 0.4]);
+  const opacity = useTransform(scrollY, [0, 1000], [0.2, 0.4]);
   const translateY = useTransform(scrollY, [0, 1000], [0, -300]);
   const translateX = useTransform(scrollY, [0, 1000], [0, 20]);
 
