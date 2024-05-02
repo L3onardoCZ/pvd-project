@@ -39,14 +39,19 @@ export default function LoginPage() {
       if(sessionStorage.getItem("jmeno") == null) {
         setJmeno("Přihlásit");
         setPrijmeni("se");
+      } else {
+        let sessionJmeno = sessionStorage.getItem("jmeno");
+        let sessionPrijmeni = sessionStorage.getItem("prijmeni");
+        setJmeno(String(sessionJmeno));
+        setPrijmeni(String(sessionPrijmeni));
       }
     });
 
 
   const[email, setEmail] = useState("");
   const[heslo, setHeslo] = useState("");
-  const[jmeno, setJmeno] = useState(sessionStorage.getItem("jmeno"));
-  const[prijmeni, setPrijmeni] = useState(sessionStorage.getItem("prijmeni"));
+  const[jmeno, setJmeno] = useState("");
+  const[prijmeni, setPrijmeni] = useState("");
 
   const handleLogin = () => {
 
