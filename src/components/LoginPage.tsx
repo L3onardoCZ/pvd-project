@@ -35,12 +35,18 @@ export default function LoginPage() {
             })
     }, []);
 
+    useEffect(() => {
+      if(sessionStorage.getItem("jmeno") == null) {
+        setJmeno("Přihlásit");
+        setPrijmeni("se");
+      }
+    });
+
 
   const[email, setEmail] = useState("");
   const[heslo, setHeslo] = useState("");
   const[jmeno, setJmeno] = useState(sessionStorage.getItem("jmeno"));
   const[prijmeni, setPrijmeni] = useState(sessionStorage.getItem("prijmeni"));
-  const isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
   const handleLogin = () => {
 
