@@ -43,7 +43,7 @@ function BackgroundLetters(): JSX.Element {
         const randomXOffset = getRandomNumberInRange(-50, 50);
         const randomRotate = getRandomNumberInRange(-90, 90);
         const randomColor = getRandomNumberInRange(180, 360);
-        const opacity = getRandomNumberInrange(0.1, 0.4);
+        const opacity = getRandomNumberInRange(0.1, 0.4);
 
         return (
           <motion.div
