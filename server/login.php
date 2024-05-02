@@ -17,8 +17,14 @@ if(isset($data["email"]) && isset($data["heslo"])) {
 
     include("db_connect.php");
 
-$sql = "SELECT idUzivatel, jmenoUzivatel, prijmeniUzivatel, hesloUzivatel FROM uzivatele WHERE emailUzivatel='$email'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT idUzivatel, jmenoUzivatel, prijmeniUzivatel, hesloUzivatel FROM uzivatele WHERE emailUzivatel= ?");
+
+$stmt->bind_param("s", $email);
+$stmt->execute();
+
+
+
+$result = $stmt->get_result();
 $row = $result->fetch_assoc();
 if(isset($row["hesloUzivatel"])) {
     $hash = $row["hesloUzivatel"];
@@ -32,7 +38,7 @@ if (password_verify($heslo, $hash) == true) {
     $data = false;
     echo json_encode($data);
 }
-
+$stmt->close();
 $conn->close();
 
 } else {
