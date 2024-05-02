@@ -19,7 +19,7 @@ function BackgroundLetters(): JSX.Element {
   const { scrollY } = useScroll();
 
 
-  const opacity = useTransform(scrollY, [0, 1000], [0.3, 0.4]);
+
   const translateY = useTransform(scrollY, [0, 1000], [0, -300]);
   const translateX = useTransform(scrollY, [0, 1000], [0, 20]);
 
@@ -31,7 +31,7 @@ function BackgroundLetters(): JSX.Element {
   const [randomLetters, setRandomLetters] = useState<string[]>([]);
 
   useEffect(() => {
-    const generatedLetters = Array.from({ length: 50 }, () => getRandomLetter());
+    const generatedLetters = Array.from({ length: 70 }, () => getRandomLetter());
     setRandomLetters(generatedLetters);
   }, []); 
 
@@ -43,12 +43,13 @@ function BackgroundLetters(): JSX.Element {
         const randomXOffset = getRandomNumberInRange(-50, 50);
         const randomRotate = getRandomNumberInRange(-90, 90);
         const randomColor = getRandomNumberInRange(180, 360);
+        const opacity = getRandomNumberInrange(0.1, 0.4);
 
         return (
           <motion.div
             ref={ref}
-            initial={{y: 100, opacity: 0 }}
-            animate={{y: inView ? 0 : 100,opacity: inView ? 0.4 : 0.35 }}
+            initial={{y: 100}}
+            animate={{y: inView ? 0 : 100}}
             transition={{ type: "spring", stiffness: 100, duration: 3 }}
 
 
