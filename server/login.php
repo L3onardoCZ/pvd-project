@@ -36,6 +36,7 @@ if (password_verify($heslo, $hash) == true) {
     echo json_encode($data);
 } else {
     $data = false;
+    session_destroy();
     echo json_encode($data);
 }
 $stmt->close();

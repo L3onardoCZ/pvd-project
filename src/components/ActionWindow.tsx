@@ -45,10 +45,7 @@ export default function ActionWindow(){
         className="bg-[#ffffff75] p-4
                             dark:bg-[#140b0b6c] fixed rounded-full z-40 m-5 flex gap-5">
                 <ModeToggle />
-                <Avatar>
-                    <AvatarImage src="https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
+                <LoginPage />
                 <Menubar>
                     <MenubarMenu>
                         <MenubarTrigger className="cursor-pointer">Menu</MenubarTrigger>
@@ -57,7 +54,6 @@ export default function ActionWindow(){
                             <Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>
                             <MenubarItem>Psát</MenubarItem>
                         </MenubarContent>
-                        <LoginPage />
                     </MenubarMenu>
                 </Menubar>
             </motion.div>

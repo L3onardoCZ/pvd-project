@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import RegisterPage from "./RegisterPage";
+import AccountSettingsPage from "./AccountSettingsPage";
 
 export default function LoginPage() {
  
@@ -84,8 +85,8 @@ export default function LoginPage() {
   
   return (
     <Dialog>
-      <DialogTrigger asChild>
-      <Button variant="outline" className="border-none h-fit">{jmeno + " " + prijmeni}</Button>
+      <DialogTrigger className="h-fit" asChild>
+      {(sessionStorage.getItem("isLoggedIn") == "true") ? (<AccountSettingsPage />) : (<Button variant="outline" className="border-none h-fit">Přihlásit se</Button>)}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
