@@ -12,6 +12,6 @@ session_start();
 
 if(isset($_SESSION['idUzivatel'])) {
     echo json_encode(true);
-} else echo json_encode(false);
+} else echo json_encode(false); session_destroy();
 
 ?>
