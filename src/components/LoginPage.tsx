@@ -27,6 +27,7 @@ export default function LoginPage() {
             .then(function(response) {
                 console.log(response.data);
                 sessionStorage.setItem("isLoggedIn", String(response.data));
+                setIsLoggedIn(response.data);
                 console.log(sessionStorage.getItem("isLoggedIn"));
             })
             .catch(function(error) {
@@ -53,6 +54,7 @@ export default function LoginPage() {
   const[heslo, setHeslo] = useState("");
   const[jmeno, setJmeno] = useState("");
   const[prijmeni, setPrijmeni] = useState("");
+  const[isLoggedIn, setIsLoggedIn] = useState();
 
   const handleLogin = () => {
 
@@ -86,7 +88,7 @@ export default function LoginPage() {
   return (
     <Dialog>
       <DialogTrigger className="h-fit" asChild>
-      {(sessionStorage.getItem("isLoggedIn") == "true") ? (<AccountSettingsPage />) : (<Button variant="outline" className="border-none h-fit">Přihlásit se</Button>)}
+      {(isLoggedIn == true) ? (<AccountSettingsPage />) : (<Button variant="outline" className="border-none h-fit">Přihlásit se</Button>)}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
