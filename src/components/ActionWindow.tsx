@@ -50,7 +50,7 @@ export default function ActionWindow(){
                     <MenubarMenu>
                         <MenubarTrigger className="cursor-pointer">Menu</MenubarTrigger>
                         <MenubarContent>
-                            <Link href="./"><MenubarItem>Domů</MenubarItem></Link>
+                            <Link href="./"><MenubarItem className="h-auto">Domů</MenubarItem></Link>
                             <Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>
                             <MenubarItem>Psát</MenubarItem>
                         </MenubarContent>

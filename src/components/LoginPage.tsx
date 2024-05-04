@@ -23,7 +23,7 @@ export default function LoginPage() {
 
   
   useEffect(() => {
-        axios.post("/pvd-project/server/isLoggedIn.php")
+        axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
             .then(function(response) {
                 console.log(response.data);
                 sessionStorage.setItem("isLoggedIn", String(response.data));
@@ -56,6 +56,8 @@ export default function LoginPage() {
   const[prijmeni, setPrijmeni] = useState("");
   const[isLoggedIn, setIsLoggedIn] = useState();
 
+  const[showError, setShowError] = useState(false);
+
   const handleLogin = () => {
 
     let data = {
@@ -63,22 +65,20 @@ export default function LoginPage() {
       "heslo": heslo
     }
     
-    axios.post("/pvd-project/server/login.php", data)
+    axios.post("http://localhost/pvd-project/server/login.php", data)
     .then(function(response) {
         console.log(response.data);
         if(response.data !== false) {
           sessionStorage.setItem("jmeno", response.data.jmeno);
           sessionStorage.setItem("prijmeni", response.data.prijmeni);
-          alert("Přihlášení proběhlo úspěšně.");
           window.location.reload();
         } else {
-          alert("Přihlášení se nezdařilo.");
-          window.location.reload();
+          setShowError(true);
         }
     })
     .catch(function(error) {
         console.log(error);
-        alert("Něco se pokazilo.");
+        alert("Nelze se připojit k serveru, zkuste to prosím později.");
         window.location.reload();
     })
   }
@@ -87,8 +87,8 @@ export default function LoginPage() {
   
   return (
     <Dialog>
-      <DialogTrigger className="h-fit" asChild>
-      {(isLoggedIn == true) ? (<AccountSettingsPage />) : (<Button variant="outline" className="border-none h-fit">Přihlásit se</Button>)}
+      <DialogTrigger asChild>
+      {(isLoggedIn == true) ? (<AccountSettingsPage />) : (<Button variant="outline" className="border-none h-auto">Přihlásit se</Button>)}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -107,7 +107,7 @@ export default function LoginPage() {
               placeholder="jan.novak@gmail.com"
               className="col-span-3"
               type="e-mail"
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) => {setEmail(event.target.value); setShowError(false)}}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -119,13 +119,14 @@ export default function LoginPage() {
               placeholder="Heslo"
               className="col-span-3"
               type="password"
-              onChange={(event) => setHeslo(event.target.value)}
+              onChange={(event) => {setHeslo(event.target.value); setShowError(false)}}
             />
           </div>
+          {showError && <p className="text-red-500">Zadal/a jste špatně e-mail nebo heslo. Zkuste to znovu.</p>}
         </div>
         <DialogFooter>
           <RegisterPage />
-          <Button className="grow" type="submit" onClick={handleLogin}>Přihlásit se</Button>
+          <Button className="grow bg-lime-500 text-white hover:bg-lime-700" type="submit" onClick={handleLogin}>Přihlásit se</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

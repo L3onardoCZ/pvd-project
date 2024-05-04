@@ -12,22 +12,25 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import axios from "axios";
+import Link from 'next/link';
 
 export default function AccountSettingsPage() {
+  
+    const jmeno = sessionStorage.getItem("jmeno");
+    const prijmeni = sessionStorage.getItem("prijmeni");
 
     axios.defaults.withCredentials = true;
 
     const handleLogout = () => {
-        axios.post("/pvd-project/server/logout.php")
+        axios.post("http://localhost/pvd-project/server/logout.php")
             .then(function(response) {
                 sessionStorage.removeItem("jmeno");
                 sessionStorage.removeItem("prijmeni");
-                alert("Odhlášení proběhlo úspěšně.");
                 window.location.reload();
             })
             .catch(function(error) {
                 console.log(error);
-                alert("Něco se pokazilo.");
+                alert("Nelze se připojit k serveru. Zkuste to prosím později.");
                 window.location.reload();
             })
     }
@@ -42,19 +45,17 @@ export default function AccountSettingsPage() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Nastavení účtu</DialogTitle>
+          <DialogTitle>{jmeno + " " + prijmeni}</DialogTitle>
           <DialogDescription>
-            Nastavte si svůj účet.
+            Nastavení účtu
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Button onClick={handleLogout} className="h-fit w-fit">Odhlásit se</Button>
+            <Link href="./account"><Button>Můj účet</Button></Link>
+            <Button onClick={handleLogout} className="w-fit bg-red-500 text-white hover:bg-red-700">Odhlásit se</Button>
           </div>
         </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   )

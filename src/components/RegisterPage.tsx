@@ -21,6 +21,9 @@ export default function RegisterPage() {
   const[heslo, setHeslo] = useState("");
   const[jmeno, setJmeno] = useState("");
   const[prijmeni, setPrijmeni] = useState("");
+
+  const[showSuccess, setShowSuccess] = useState(false);
+  const[showError, setShowError] = useState(false);
   
   const handleRegistrace = () => {
     let data = {
@@ -30,9 +33,12 @@ export default function RegisterPage() {
       "prijmeni": prijmeni
     }
 
-    axios.post("/pvd-project/server/register.php", data)
+    axios.post("http://localhost/pvd-project/server/register.php", data)
       .then(function(response) {
         console.log(response.data);
+        setShowSuccess(false);
+        setShowError(false);
+        (response.data != false) ? setShowSuccess(true) : setShowError(true);
       })
       .catch(function(error) {
         console.log(error);
@@ -42,7 +48,7 @@ export default function RegisterPage() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="border-none h-auto bg-red-600 hover:bg-red-800">Registrace</Button>
+        <Button variant="outline" className="border-none h-auto bg-red-600 hover:bg-red-800 text-white hover:text-white">Registrace</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -61,7 +67,7 @@ export default function RegisterPage() {
               placeholder="jan.novak@gmail.com"
               className="col-span-3"
               type="e-mail"
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) => {setEmail(event.target.value); setShowError(false); setShowSuccess(false)}}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -73,7 +79,7 @@ export default function RegisterPage() {
               placeholder="Heslo"
               className="col-span-3"
               type="password"
-              onChange={(event) => setHeslo(event.target.value)}
+              onChange={(event) => {setHeslo(event.target.value); setShowError(false); setShowSuccess(false)}}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -85,7 +91,7 @@ export default function RegisterPage() {
               placeholder="Jan"
               className="col-span-3"
               type="text"
-              onChange={(event) => setJmeno(event.target.value)}
+              onChange={(event) => {setJmeno(event.target.value); setShowError(false); setShowSuccess(false)}}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -97,12 +103,14 @@ export default function RegisterPage() {
               placeholder="Novák"
               className="col-span-3"
               type="text"
-              onChange={(event) => setPrijmeni(event.target.value)}
+              onChange={(event) => {setPrijmeni(event.target.value); setShowError(false); setShowSuccess(false)}}
             />
           </div>
+          {showSuccess && <p className="text-lime-500">Registrace proběhla úspěšně. Nyní zavřete okno registrace a přihlaste se.</p>}
+          {showError && <p className="text-red-500">Účet s tímto e-mailovým účtem již existuje. Zkuste prosím jiný e-mail.</p>}
         </div>
         <DialogFooter>
-          <Button onClick={handleRegistrace}>Zaregistrovat se</Button>
+          <Button className="text-white bg-lime-500 hover:bg-lime-700" onClick={handleRegistrace}>Zaregistrovat se</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
