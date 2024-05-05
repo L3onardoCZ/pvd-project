@@ -48,7 +48,7 @@ export default function RegisterPage() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary" className="">Registrace</Button>
+        <Button variant="destructive" className="">Registrace</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -110,7 +110,7 @@ export default function RegisterPage() {
           {showError && <p className="text-red-500">Účet s tímto e-mailovým účtem již existuje. Zkuste prosím jiný e-mail.</p>}
         </div>
         <DialogFooter>
-          <Button className="text-white bg-lime-500 hover:bg-lime-700" onClick={handleRegistrace}>Zaregistrovat se</Button>
+          <Button className="" onClick={handleRegistrace}>Zaregistrovat se</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
