@@ -1,12 +1,12 @@
 import SmallHeader from "@/components/SmallHeader"
 import SmallFooter from "@/components/SmallFooter"
-import Dashboard from "@/components/Dashboard";
+import TypingSection from "@/components/TypingSection"
 
 export default function typing(){
     return(
         <>
             <SmallHeader/>
-            <Dashboard/>
+            <TypingSection/>
             <SmallFooter/>
         </>
     )
