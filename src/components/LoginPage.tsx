@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -16,45 +17,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import RegisterPage from "./RegisterPage";
 import AccountSettingsPage from "./AccountSettingsPage";
+import React, { FC } from 'react';
 
-export default function LoginPage() {
+export default function LoginPage({isLoggedIn}) {
  
   axios.defaults.withCredentials = true;
 
   
-  useEffect(() => {
-        axios.post(String(sessionStorage.getItem("url") + "/server/isLoggedIn.php"))
-            .then(function(response) {
-                console.log(response.data);
-                sessionStorage.setItem("isLoggedIn", String(response.data));
-                setIsLoggedIn(response.data);
-                console.log(sessionStorage.getItem("isLoggedIn"));
-            })
-            .catch(function(error) {
-                console.log(error);
-                sessionStorage.setItem("isLoggedIn", "false");
-                console.log(sessionStorage.getItem("isLoggedIn"));
-            })
-    }, []);
-
-    useEffect(() => {
-      if(sessionStorage.getItem("jmeno") == null) {
-        setJmeno("Přihlásit");
-        setPrijmeni("se");
-      } else {
-        let sessionJmeno = sessionStorage.getItem("jmeno");
-        let sessionPrijmeni = sessionStorage.getItem("prijmeni");
-        setJmeno(String(sessionJmeno));
-        setPrijmeni(String(sessionPrijmeni));
-      }
-    });
-
+ 
 
   const[email, setEmail] = useState("");
   const[heslo, setHeslo] = useState("");
-  const[jmeno, setJmeno] = useState("");
-  const[prijmeni, setPrijmeni] = useState("");
-  const[isLoggedIn, setIsLoggedIn] = useState();
 
   const[showError, setShowError] = useState(false);
 

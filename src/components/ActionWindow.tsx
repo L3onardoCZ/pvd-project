@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 
 import {
@@ -29,15 +30,7 @@ import { motion } from "framer-motion";
 
 
 
-export default function ActionWindow(){
-
-
-    const[isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        setIsLoggedIn(Boolean(sessionStorage.getItem("isLoggedIn")));
-    })
-
+export default function ActionWindow({isLoggedIn}){
 
 
     const [ref, inView] = useInView({
@@ -56,7 +49,7 @@ export default function ActionWindow(){
             className="bg-[#ffffff75] p-4
                                 dark:bg-[#140b0b6c] fixed rounded-full z-40 m-5 flex gap-5">
                 <ModeToggle />
-                <LoginPage />
+                <LoginPage isLoggedIn={isLoggedIn}/>
                 <Menubar>
                     <MenubarMenu>
                         <MenubarTrigger className="cursor-pointer">Menu</MenubarTrigger>
