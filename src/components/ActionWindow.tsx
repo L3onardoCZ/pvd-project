@@ -60,7 +60,7 @@ export default function ActionWindow({isLoggedIn}){
                         </MenubarContent>
                     </MenubarMenu>
                 </Menubar>
-             {( isLoggedIn == true ) ? (<Link href="./typing"><Button className="h-auto">Psát</Button></Link>) : (<LoginPage />)}
+             {( isLoggedIn == true ) ? (<Link href="./typing"><Button className="h-auto">Psát</Button></Link>) : (<Button className="h-auto" disabled>Psát</Button>)}
  
             </motion.div>
 
