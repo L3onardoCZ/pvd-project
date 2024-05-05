@@ -52,7 +52,7 @@ export default function ActionWindow(){
                         <MenubarContent>
                             <Link href="./"><MenubarItem className="h-auto">Domů</MenubarItem></Link>
                             <Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>
-                            <MenubarItem>Psát</MenubarItem>
+                            <Link href="./typing"><MenubarItem>Psát</MenubarItem></Link>
                         </MenubarContent>
                     </MenubarMenu>
                 </Menubar>

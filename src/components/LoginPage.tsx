@@ -88,7 +88,7 @@ export default function LoginPage() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-      {(isLoggedIn == true) ? (<AccountSettingsPage />) : (<Button variant="outline" className="border-none h-auto">Přihlásit se</Button>)}
+      {(isLoggedIn == true) ? (<AccountSettingsPage />) : (<Button variant="outline" className="">Přihlásit se</Button>)}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
