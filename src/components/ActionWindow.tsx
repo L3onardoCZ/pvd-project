@@ -15,6 +15,7 @@ import {
     MenubarSubTrigger,
     MenubarTrigger,
   } from "@/components/ui/menubar";
+  import { Button } from "@/components/ui/button"
   import { useState, useEffect } from "react";
   import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
   import ModeToggle from "./ModeToggle";
@@ -29,6 +30,27 @@ import { motion } from "framer-motion";
 
 
 export default function ActionWindow(){
+
+    useEffect(() => {
+        axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
+            .then(function(response) {
+                console.log(response.data);
+                sessionStorage.setItem("isLoggedIn", String(response.data));
+                setIsLoggedIn(response.data);
+                console.log(sessionStorage.getItem("isLoggedIn"));
+            })
+            .catch(function(error) {
+                console.log(error);
+                sessionStorage.setItem("isLoggedIn", "false");
+                console.log(sessionStorage.getItem("isLoggedIn"));
+            })
+    }, []);
+
+    const[isLoggedIn, setIsLoggedIn] = useState();
+
+
+
+
     const [ref, inView] = useInView({
         triggerOnce: true,
         threshold: 1,
@@ -37,25 +59,25 @@ export default function ActionWindow(){
     return(
         <>
         <motion.div 
-        ref={ref}
-        initial={{x: 100, opacity: 0 }}
-        animate={{x: inView ? 0 : -100,opacity: inView ? 1 : 0 }}
-        transition={{ type: "spring", stiffness: 50, duration: 0.5 }}
-        
-        className="bg-[#ffffff75] p-4
-                            dark:bg-[#140b0b6c] fixed rounded-full z-40 m-5 flex gap-5">
+            ref={ref}
+            initial={{x: 100, opacity: 0 }}
+            animate={{x: inView ? 0 : -100,opacity: inView ? 1 : 0 }}
+            transition={{ type: "spring", stiffness: 50, duration: 0.5 }}
+            
+            className="bg-[#ffffff75] p-4
+                                dark:bg-[#140b0b6c] fixed rounded-full z-40 m-5 flex gap-5">
                 <ModeToggle />
-                <LoginPage />
+                
                 <Menubar>
                     <MenubarMenu>
                         <MenubarTrigger className="cursor-pointer">Menu</MenubarTrigger>
                         <MenubarContent>
                             <Link href="./"><MenubarItem className="h-auto">Domů</MenubarItem></Link>
                             <Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>
-                            <Link href="./typing"><MenubarItem>Psát</MenubarItem></Link>
                         </MenubarContent>
                     </MenubarMenu>
                 </Menubar>
+                {(isLoggedIn == true) ? (<Link href="./typing"><Button className="h-auto">Psát</Button></Link>) : (<LoginPage />)}
             </motion.div>
         </>
     )
