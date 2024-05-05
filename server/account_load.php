@@ -11,7 +11,7 @@ session_start();
 <?php
 include("db_connect.php");
 
-$idUzivatel = $_SESSION['idUzivtel'];
+$idUzivatel = $_SESSION['idUzivatel'];
 
 $sql = "SELECT jmenoUzivatel, prijmeniUzivatel, emailUzivatel FROM uzivatele WHERE idUzivatel = $idUzivatel";
 

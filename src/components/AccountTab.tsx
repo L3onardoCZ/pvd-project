@@ -23,26 +23,57 @@ import axios from "axios"
  
 export default function AccountTab() {
 
+  const[showError, setShowError] = useState(false);
+
   const[aktualniJmeno, setAktualniJmeno] = useState("");
   const[aktualniPrijmeni, setAktualniPrijmeni] = useState("");
   const[aktualniEmail, setAktualniEmail] = useState("");
 
   useEffect(() => {
-    axios.post("http://localhost/pvd-project/server/account_load.php")
+    axios.post(String(sessionStorage.getItem("url") + "/server/account_load.php"))
       .then(function(response) {
-
+        setAktualniJmeno(response.data.jmeno);
+        setAktualniPrijmeni(response.data.prijmeni);
+        setAktualniEmail(response.data.email);
       })
       .catch(function(error) {
-
+        console.log(error);
       })
-  })
+  }, []);
 
   const[noveJmeno, setNoveJmeno] = useState("");
   const[novePrijmeni, setNovePrijmeni] = useState("");
   const[novyEmail, setNovyEmail] = useState("");
 
+  useEffect(() => {
+    setNoveJmeno(String(aktualniJmeno));
+    setNovePrijmeni(String(aktualniPrijmeni));
+    setNovyEmail(String(aktualniEmail));
+  }, [aktualniJmeno, aktualniPrijmeni, aktualniEmail])
+
   const handleAccountChange = () => {
-    
+
+    sessionStorage.setItem("jmeno", noveJmeno);
+    sessionStorage.setItem("prijmeni", novePrijmeni);
+
+    let data = {
+      "jmeno": noveJmeno,
+      "prijmeni": novePrijmeni,
+      "email": novyEmail
+    }
+
+    axios.post(String(sessionStorage.getItem("url") + "/server/account_change.php"), data)
+      .then(function(response) {
+        console.log(response.data);
+        if(response.data != false) {
+          window.location.reload();
+        } else setShowError(true);
+      })
+      .catch(function(error) {
+        console.log(error);
+        alert("Nelze se připojit k serveru.");
+        window.location.reload();
+      })
   }
 
   const handlePasswordChange = () => {
@@ -66,19 +97,20 @@ export default function AccountTab() {
           <CardContent className="space-y-2">
             <div className="space-y-1">
               <Label htmlFor="name">Jméno</Label>
-              <Input id="name" defaultValue="Pedro Duarte" />
+              <Input id="name" defaultValue={aktualniJmeno} onChange={(event) => {setNoveJmeno(event.target.value); setShowError(false)}} />
             </div>
             <div className="space-y-1">
               <Label htmlFor="name">Příjmení</Label>
-              <Input id="name" defaultValue="Pedro Duarte" />
+              <Input id="name" defaultValue={aktualniPrijmeni} onChange={(event) => {setNovePrijmeni(event.target.value); setShowError(false)}} />
             </div>
             <div className="space-y-1">
               <Label htmlFor="username">E-mail</Label>
-              <Input id="username" defaultValue="@peduarte" />
+              <Input id="username" defaultValue={aktualniEmail} onChange={(event) => {setNovyEmail(event.target.value); setShowError(false)}} />
+              {showError && <p className="text-red-500">Musíte mít vyplněna všechna pole.</p>}
             </div>
           </CardContent>
           <CardFooter>
-            <Button>Uložit</Button>
+            <Button onClick={handleAccountChange}>Uložit</Button>
           </CardFooter>
         </Card>
       </TabsContent>

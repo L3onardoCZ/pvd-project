@@ -23,7 +23,7 @@ export default function LoginPage() {
 
   
   useEffect(() => {
-        axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
+        axios.post(String(sessionStorage.getItem("url") + "/server/isLoggedIn.php"))
             .then(function(response) {
                 console.log(response.data);
                 sessionStorage.setItem("isLoggedIn", String(response.data));
@@ -65,7 +65,7 @@ export default function LoginPage() {
       "heslo": heslo
     }
     
-    axios.post("http://localhost/pvd-project/server/login.php", data)
+    axios.post(String(sessionStorage.getItem("url") + "/server/login.php"), data)
     .then(function(response) {
         console.log(response.data);
         if(response.data !== false) {

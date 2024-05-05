@@ -32,7 +32,11 @@ import { motion } from "framer-motion";
 export default function ActionWindow(){
 
 
+    const[isLoggedIn, setIsLoggedIn] = useState(false);
 
+    useEffect(() => {
+        setIsLoggedIn(Boolean(sessionStorage.getItem("isLoggedIn")));
+    })
 
 
 
@@ -52,18 +56,18 @@ export default function ActionWindow(){
             className="bg-[#ffffff75] p-4
                                 dark:bg-[#140b0b6c] fixed rounded-full z-40 m-5 flex gap-5">
                 <ModeToggle />
-        
+                <LoginPage />
                 <Menubar>
                     <MenubarMenu>
                         <MenubarTrigger className="cursor-pointer">Menu</MenubarTrigger>
                         <MenubarContent>
                             <Link href="./"><MenubarItem className="h-auto">Domů</MenubarItem></Link>
-                            {/* {( isLoggedIn == true ) ? (<Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>) : <MenubarItem disabled>Můj účet</MenubarItem>} */}
+                            {( isLoggedIn == true ) ? (<Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>) : <MenubarItem disabled>Můj účet</MenubarItem>}
 
                         </MenubarContent>
                     </MenubarMenu>
                 </Menubar>
-             {/* {( isLoggedIn == true ) ? (<Link href="./typing"><Button className="h-auto">Psát</Button></Link>) : (<LoginPage />)} */}
+             {( isLoggedIn == true ) ? (<Link href="./typing"><Button className="h-auto">Psát</Button></Link>) : (<LoginPage />)}
  
             </motion.div>
 
