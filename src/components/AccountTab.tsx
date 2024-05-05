@@ -28,7 +28,7 @@ export default function AccountTab() {
   const[aktualniEmail, setAktualniEmail] = useState("");
 
   useEffect(() => {
-    axios.post(sessionStorage.getItem("cesta") + "/account_load.php")
+    axios.post("http://localhost/pvd-project/server/account_load.php")
       .then(function(response) {
 
       })
