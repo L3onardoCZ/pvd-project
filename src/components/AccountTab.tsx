@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -16,8 +18,37 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import ImageUpload from "./ImageUpload"
+import { useState, useEffect } from "react"
+import axios from "axios"
  
 export default function AccountTab() {
+
+  const[aktualniJmeno, setAktualniJmeno] = useState("");
+  const[aktualniPrijmeni, setAktualniPrijmeni] = useState("");
+  const[aktualniEmail, setAktualniEmail] = useState("");
+
+  useEffect(() => {
+    axios.post("http://localhost/pvd-project/server/account_load.php")
+      .then(function(response) {
+
+      })
+      .catch(function(error) {
+
+      })
+  })
+
+  const[noveJmeno, setNoveJmeno] = useState("");
+  const[novePrijmeni, setNovePrijmeni] = useState("");
+  const[novyEmail, setNovyEmail] = useState("");
+
+  const handleAccountChange = () => {
+    
+  }
+
+  const handlePasswordChange = () => {
+    
+  }
+
   return (
     <Tabs defaultValue="account" className="w-[400px]">
       <TabsList className="grid w-full grid-cols-2">
