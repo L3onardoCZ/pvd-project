@@ -73,7 +73,8 @@ export default function ActionWindow(){
                         <MenubarTrigger className="cursor-pointer">Menu</MenubarTrigger>
                         <MenubarContent>
                             <Link href="./"><MenubarItem className="h-auto">Domů</MenubarItem></Link>
-                            <Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>
+                            {(isLoggedIn == true) ? (<Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>) : <MenubarItem disabled>Můj účet</MenubarItem>}
+
                         </MenubarContent>
                     </MenubarMenu>
                 </Menubar>
