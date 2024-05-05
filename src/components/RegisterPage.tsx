@@ -48,7 +48,7 @@ export default function RegisterPage() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="border-none h-auto bg-red-600 hover:bg-red-800 text-white hover:text-white">Registrace</Button>
+        <Button variant="secondary" className="">Registrace</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

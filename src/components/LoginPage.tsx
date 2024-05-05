@@ -126,7 +126,7 @@ export default function LoginPage() {
         </div>
         <DialogFooter>
           <RegisterPage />
-          <Button className="grow bg-lime-500 text-white hover:bg-lime-700" type="submit" onClick={handleLogin}>Přihlásit se</Button>
+          <Button className="grow" type="submit" onClick={handleLogin}>Přihlásit se</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
