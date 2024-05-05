@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import axios from "axios";
 import Link from 'next/link';
+import ImageUpload from "./ImageUpload";
 
 export default function AccountSettingsPage() {
   

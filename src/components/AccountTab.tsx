@@ -15,57 +15,62 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import ImageUpload from "./ImageUpload"
  
 export default function AccountTab() {
   return (
     <Tabs defaultValue="account" className="w-[400px]">
       <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsTrigger value="account">Účet</TabsTrigger>
+        <TabsTrigger value="password">Heslo</TabsTrigger>
       </TabsList>
       <TabsContent value="account">
         <Card>
           <CardHeader>
-            <CardTitle>Account</CardTitle>
+            <CardTitle>Můj účet</CardTitle>
             <CardDescription>
-              Make changes to your account here. Click save when you're done.
+              Zde můžete změnit své údaje. Klikněte na tlačítko "uložit" po dokončení změn.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="space-y-1">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name">Jméno</Label>
               <Input id="name" defaultValue="Pedro Duarte" />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="name">Příjmení</Label>
+              <Input id="name" defaultValue="Pedro Duarte" />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="username">E-mail</Label>
               <Input id="username" defaultValue="@peduarte" />
             </div>
           </CardContent>
           <CardFooter>
-            <Button>Save changes</Button>
+            <Button>Uložit</Button>
           </CardFooter>
         </Card>
       </TabsContent>
       <TabsContent value="password">
         <Card>
           <CardHeader>
-            <CardTitle>Password</CardTitle>
+            <CardTitle>Heslo</CardTitle>
             <CardDescription>
-              Change your password here. After saving, you'll be logged out.
+              Zde můžete změnit své heslo. Po dokončení změn klikněte na tlačítko "uložit heslo.""
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="space-y-1">
-              <Label htmlFor="current">Current password</Label>
+              <Label htmlFor="current">Aktuální heslo</Label>
               <Input id="current" type="password" />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="new">New password</Label>
+              <Label htmlFor="new">Nové heslo</Label>
               <Input id="new" type="password" />
             </div>
           </CardContent>
           <CardFooter>
-            <Button>Save password</Button>
+            <Button>Uložit heslo</Button>
           </CardFooter>
         </Card>
       </TabsContent>
