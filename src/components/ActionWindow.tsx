@@ -31,22 +31,7 @@ import { motion } from "framer-motion";
 
 export default function ActionWindow(){
 
-    useEffect(() => {
-        axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
-            .then(function(response) {
-                console.log(response.data);
-                sessionStorage.setItem("isLoggedIn", String(response.data));
-                setIsLoggedIn(response.data);
-                console.log(sessionStorage.getItem("isLoggedIn"));
-            })
-            .catch(function(error) {
-                console.log(error);
-                sessionStorage.setItem("isLoggedIn", "false");
-                console.log(sessionStorage.getItem("isLoggedIn"));
-            })
-    }, []);
 
-    const[isLoggedIn, setIsLoggedIn] = useState();
 
 
 
@@ -67,19 +52,21 @@ export default function ActionWindow(){
             className="bg-[#ffffff75] p-4
                                 dark:bg-[#140b0b6c] fixed rounded-full z-40 m-5 flex gap-5">
                 <ModeToggle />
-                
+        
                 <Menubar>
                     <MenubarMenu>
                         <MenubarTrigger className="cursor-pointer">Menu</MenubarTrigger>
                         <MenubarContent>
                             <Link href="./"><MenubarItem className="h-auto">Domů</MenubarItem></Link>
-                            {(isLoggedIn == true) ? (<Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>) : <MenubarItem disabled>Můj účet</MenubarItem>}
+                            {/* {( isLoggedIn == true ) ? (<Link href="./account"><MenubarItem>Můj účet</MenubarItem></Link>) : <MenubarItem disabled>Můj účet</MenubarItem>} */}
 
                         </MenubarContent>
                     </MenubarMenu>
                 </Menubar>
-                {(isLoggedIn == true) ? (<Link href="./typing"><Button className="h-auto">Psát</Button></Link>) : (<LoginPage />)}
+             {/* {( isLoggedIn == true ) ? (<Link href="./typing"><Button className="h-auto">Psát</Button></Link>) : (<LoginPage />)} */}
+ 
             </motion.div>
+
         </>
     )
 }
