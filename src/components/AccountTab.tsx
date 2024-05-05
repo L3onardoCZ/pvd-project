@@ -30,7 +30,7 @@ export default function AccountTab() {
   const[aktualniEmail, setAktualniEmail] = useState("");
 
   useEffect(() => {
-    axios.post(String(sessionStorage.getItem("url") + "/server/account_load.php"))
+    axios.post("http://localhost/pvd-project/server/account_load.php")
       .then(function(response) {
         setAktualniJmeno(response.data.jmeno);
         setAktualniPrijmeni(response.data.prijmeni);

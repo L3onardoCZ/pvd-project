@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -17,13 +16,24 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import RegisterPage from "./RegisterPage";
 import AccountSettingsPage from "./AccountSettingsPage";
-import React, { FC } from 'react';
 
-export default function LoginPage({isLoggedIn}) {
+
+export default function LoginPage() {
  
   axios.defaults.withCredentials = true;
 
-  
+  const[isLoggedIn, setIsLoggedIn] = useState(false);
+    useEffect(() => {
+        axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
+            .then(function(response) {
+                console.log(response.data);
+                setIsLoggedIn(response.data);
+            })
+            .catch(function(error) {
+                console.log(error);
+                setIsLoggedIn(false);
+            })
+      }, []);
  
 
   const[email, setEmail] = useState("");
@@ -38,7 +48,7 @@ export default function LoginPage({isLoggedIn}) {
       "heslo": heslo
     }
     
-    axios.post(String(sessionStorage.getItem("url") + "/server/login.php"), data)
+    axios.post("http://localhost/pvd-project/server/login.php", data)
     .then(function(response) {
         console.log(response.data);
         if(response.data !== false) {

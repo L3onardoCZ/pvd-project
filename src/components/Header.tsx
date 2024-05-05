@@ -28,12 +28,12 @@ import "./header.css";
 
 
 
-export default function Header({isLoggedIn}){
+export default function Header(){
     
     return(
         <> 
             <ScrollBar />
-            <ActionWindow isLoggedIn={isLoggedIn}/>
+            <ActionWindow />
             <header className="flex flex-col justify-center w-full bg-gradient-to-b from-cyan-500 to-cyan-700 font-white text-white p-[90px]
                                 dark:from-cyan-950 dark:to-cyan-800">
                     <div className="mt-[200px] tracking-widest font-medium text-9xl first">

@@ -23,10 +23,11 @@ export default function AccountSettingsPage() {
     axios.defaults.withCredentials = true;
 
     const handleLogout = () => {
-        axios.post(String(sessionStorage.getItem("url") + "/server/logout.php"))
+        axios.post("http://localhost/pvd-project/server/logout.php")
             .then(function(response) {
                 sessionStorage.removeItem("jmeno");
                 sessionStorage.removeItem("prijmeni");
+                sessionStorage.setItem("isLoggedIn", "false");
                 window.location.reload();
             })
             .catch(function(error) {

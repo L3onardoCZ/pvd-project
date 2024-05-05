@@ -30,9 +30,21 @@ import { motion } from "framer-motion";
 
 
 
-export default function ActionWindow({isLoggedIn}){
+export default function ActionWindow(){
 
-
+    const[isLoggedIn, setIsLoggedIn] = useState(false);
+    useEffect(() => {
+        axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
+            .then(function(response) {
+                console.log(response.data);
+                setIsLoggedIn(response.data);
+            })
+            .catch(function(error) {
+                console.log(error);
+                setIsLoggedIn(false);
+            })
+      }, []);
+    
     const [ref, inView] = useInView({
         triggerOnce: true,
         threshold: 1,
@@ -49,7 +61,7 @@ export default function ActionWindow({isLoggedIn}){
             className="bg-[#ffffff75] p-4
                                 dark:bg-[#140b0b6c] fixed rounded-full z-40 m-5 flex gap-5">
                 <ModeToggle />
-                <LoginPage isLoggedIn={isLoggedIn}/>
+                <LoginPage />
                 <Menubar>
                     <MenubarMenu>
                         <MenubarTrigger className="cursor-pointer">Menu</MenubarTrigger>

@@ -13,27 +13,10 @@ import axios from "axios";
 
 export default function Home() {
 
-  const[isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    axios.post(String(sessionStorage.getItem("url") + "/server/isLoggedIn.php"))
-        .then(function(response) {
-            console.log(response.data);
-            setIsLoggedIn(response.data);
-        })
-        .catch(function(error) {
-            console.log(error);
-            setIsLoggedIn(false);
-        })
-}, []);
-
-  useEffect(() => {
-    sessionStorage.setItem("url", "http://localhost/pvd-project")
-  }, []);
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn}/>
+      <Header/>
       <Typography />
       <CardSection />
       <Footer />

@@ -10,4 +10,9 @@ session_start();
 
 <?php
 session_destroy();
+if(!isset($_SESSION['idUzivatel'])) {
+    echo "Ukončení session proběhlo úspěšně.";
+} else {
+    echo "Session pořád běží.";
+}
 ?>
