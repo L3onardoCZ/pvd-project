@@ -93,6 +93,7 @@ export default function TypingSection() {
                     onChange={handleTextChange}
                     placeholder={currentText}
                     disabled={progress >= 100}
+                    
                 />
 
                 <p className="text-lg">Time Elapsed: {formatTime(timeElapsed)}</p>
