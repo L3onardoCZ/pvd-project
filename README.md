@@ -8,6 +8,3 @@ Leon Suchý
 Vojtěch Reiss
 
 Rostislav Kupstov
-
-
-verunka
