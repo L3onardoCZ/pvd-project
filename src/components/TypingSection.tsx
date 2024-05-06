@@ -12,13 +12,13 @@ export default function TypingSection() {
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const [timeElapsed, setTimeElapsed] = useState<number>(0);
     const totalTextLength: number = 200;
-    const [currentText, setCurrentText] = useState<string>(""); // Aktuální text
+    const [currentText, setCurrentText] = useState<string>(""); 
 
     useEffect(() => {
-        // Náhodně vybereme text při načtení komponenty
+
         const randomIndex: number = Math.floor(Math.random() * texts.length);
         setCurrentText(texts[randomIndex]);
-    }, []); // useEffect se spustí pouze při prvním načtení komponenty
+    }, []); 
 
     useEffect(() => {
         if (progress > 0 && progress < 100) {

@@ -1,3 +1,11 @@
 .textarea{
     font-family: 'Courier New', Courier, monospace;
 }
+
+.pattern{
+    pointer-events: none;
+}
+
+.pattern:hover, .pattern:active{
+    cursor: not-allowed;
+}
