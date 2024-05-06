@@ -3,6 +3,7 @@
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { useState, useEffect } from "react";
+import texts from "./texts.json"; // Import JSON souboru s texty
 import "./typingsection.css";
 
 export default function TypingSection() {
@@ -11,8 +12,13 @@ export default function TypingSection() {
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const [timeElapsed, setTimeElapsed] = useState<number>(0);
     const totalTextLength: number = 200;
-    const text: string =
-        "The Smiths live in a house. They have a living room. They watch TV in the living room. The father cooks food in the kitchen. They eat in the dining room. The house has two bedrooms. They sleep in the bedrooms. They keep their clothes in the closet. There is one bathroom. They brush their teeth in the bathroom.";
+    const [currentText, setCurrentText] = useState<string>(""); // Aktuální text
+
+    useEffect(() => {
+        // Náhodně vybereme text při načtení komponenty
+        const randomIndex: number = Math.floor(Math.random() * texts.length);
+        setCurrentText(texts[randomIndex]);
+    }, []); // useEffect se spustí pouze při prvním načtení komponenty
 
     useEffect(() => {
         if (progress > 0 && progress < 100) {
@@ -37,19 +43,19 @@ export default function TypingSection() {
         let matchedLength: number = 0;
 
         for (let i = 0; i < matchedText.length; i++) {
-            if (matchedText[i] === text.split(" ")[i]) {
+            if (matchedText[i] === currentText.split(" ")[i]) {
                 matchedLength += matchedText[i].length + 1;
             } else {
                 break;
             }
         }
 
-        const calculatedProgress: number = (matchedLength / text.length) * 100;
+        const calculatedProgress: number = (matchedLength / currentText.length) * 100;
         setProgress(calculatedProgress > 100 ? 100 : calculatedProgress);
     };
 
     const renderText = (): JSX.Element[] => {
-        const words: string[] = text.split(" ");
+        const words: string[] = currentText.split(" ");
         return words.map((word: string, index: number) => {
             const opacity: number = index * (100 / words.length) <= progress ? 1 : 0.5;
             const transition: string = "opacity 0.5s ease"; 
@@ -81,11 +87,11 @@ export default function TypingSection() {
                 <Textarea
                     className="textarea resize-none h-[200px] text-xl"
                     onChange={handleTextChange}
-                    placeholder={text}
+                    placeholder={currentText}
                     disabled={progress >= 100}
                 />
 
-                    <p className="text-lg">Time Elapsed: {formatTime(timeElapsed)}</p>
+                <p className="text-lg">Time Elapsed: {formatTime(timeElapsed)}</p>
 
             </div>
         </div>
