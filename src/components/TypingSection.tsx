@@ -22,19 +22,21 @@ export default function TypingSection() {
 
     useEffect(() => {
         if (progress > 0 && progress < 100) {
+            const startTime = Date.now(); // Začáteční čas
             const interval = setInterval(() => {
-                setTimeElapsed((prevTimeElapsed) => prevTimeElapsed + 1);
-            }, 1000); 
+                const currentTime = Date.now(); // Aktuální čas
+                const elapsedTime = Math.floor((currentTime - startTime) / 10); // Uplynulý čas v setinách sekundy
+                setTimeElapsed(elapsedTime);
+            }, 10); // Interval spouštěný každých 10 milisekund (pro přesnost setin sekundy)
             setTimer(interval);
         } else {
             if (timer) clearInterval(timer);
         }
-    
+
         return () => {
             if (timer) clearInterval(timer);
         };
     }, [progress]);
-    
 
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const typed: string = event.target.value;
@@ -73,9 +75,10 @@ export default function TypingSection() {
     };
 
     const formatTime = (time: number): string => {
-        const minutes: number = Math.floor(time / 60);
-        const seconds: number = time % 60;
-        return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+        const minutes: number = Math.floor(time / 6000); // 100 setin sekundy = 1 minuta
+        const seconds: number = Math.floor((time % 6000) / 100); // Zbývající část pro sekundy
+        const centiseconds: number = time % 100; // Setiny sekundy
+        return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}.${centiseconds < 10 ? "0" : ""}${centiseconds}`;
     };
 
     return (
