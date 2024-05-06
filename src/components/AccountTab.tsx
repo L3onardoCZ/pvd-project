@@ -35,6 +35,8 @@ export default function AccountTab() {
         setAktualniJmeno(response.data.jmeno);
         setAktualniPrijmeni(response.data.prijmeni);
         setAktualniEmail(response.data.email);
+        sessionStorage.setItem("jmeno", response.data.jmeno);
+        sessionStorage.setItem("prijmeni", response.data.prijmeni);
       })
       .catch(function(error) {
         console.log(error);
@@ -62,7 +64,7 @@ export default function AccountTab() {
       "email": novyEmail
     }
 
-    axios.post(String(sessionStorage.getItem("url") + "/server/account_change.php"), data)
+    axios.post("http://localhost/pvd-project/server/account_change.php", data)
       .then(function(response) {
         console.log(response.data);
         if(response.data != false) {

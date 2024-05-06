@@ -22,7 +22,11 @@ if(!empty($data["jmeno"]) && !empty($data["prijmeni"]) && !empty($data["email"])
    $stmt->bind_param("sss", $jmeno, $prijmeni, $email);
     
    $jmeno = $data["jmeno"];
+   $jmeno = strtolower($jmeno);
+   $jmeno = ucfirst($jmeno);
    $prijmeni = $data["prijmeni"];
+   $prijmeni = strtolower($prijmeni);
+   $prijmeni = ucfirst($prijmeni);
    $email = $data["email"];
 
    $stmt->execute();
