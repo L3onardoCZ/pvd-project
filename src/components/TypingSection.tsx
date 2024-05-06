@@ -24,16 +24,17 @@ export default function TypingSection() {
         if (progress > 0 && progress < 100) {
             const interval = setInterval(() => {
                 setTimeElapsed((prevTimeElapsed) => prevTimeElapsed + 1);
-            }, 1000);
+            }, 1000); 
             setTimer(interval);
         } else {
             if (timer) clearInterval(timer);
         }
-
+    
         return () => {
             if (timer) clearInterval(timer);
         };
     }, [progress]);
+    
 
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const typed: string = event.target.value;
