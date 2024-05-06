@@ -10,5 +10,3 @@ Vojtěch Reiss
 Rostislav Kupstov
 
 
-
-

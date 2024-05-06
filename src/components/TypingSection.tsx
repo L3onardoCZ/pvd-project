@@ -12,7 +12,7 @@ export default function TypingSection() {
     const [timeElapsed, setTimeElapsed] = useState<number>(0);
     const totalTextLength: number = 200;
     const text: string =
-        "Lucas goes to school every day of the week. He has many subjects to go to each school day: English, art, science, mathematics, gym, and history. His mother packs a big backpack full of books and lunch for Lucas.";
+        "The Smiths live in a house. They have a living room. They watch TV in the living room. The father cooks food in the kitchen. They eat in the dining room. The house has two bedrooms. They sleep in the bedrooms. They keep their clothes in the closet. There is one bathroom. They brush their teeth in the bathroom.";
 
     useEffect(() => {
         if (progress > 0 && progress < 100) {
