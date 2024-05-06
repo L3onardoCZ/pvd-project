@@ -3,7 +3,7 @@
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { useState, useEffect } from "react";
-import texts from "./texts.json"; // Import JSON souboru s texty
+import texts from "./texts.json"; 
 import "./typingsection.css";
 
 export default function TypingSection() {
