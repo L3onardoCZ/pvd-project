@@ -42,10 +42,22 @@ export default function ImageUpload() {
       });
   }
 
+  const deleteImage = () => {
+    axios.post("http://localhost/pvd-project/server/image_delete.php")
+      .then(function(response) {
+        console.log(response.data);
+        window.location.reload();
+      })
+      .catch(function(error) {
+        console.log(error);
+      })
+  }
+
   return (
     <>
       <Input id='pictureinput' className="cursor-pointer" type="file" onChange={handleImageUpload} />
       <Button className='w-fit' onClick={handleSubmit}>Nahrát</Button>
+      <Button className='ml-3 bg-red-800 text-white hover:bg-red-900' onClick={deleteImage}>Odstranit obrázek</Button>
     </>
   );
 }

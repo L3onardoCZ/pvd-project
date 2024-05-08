@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import axios from "axios";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 
 export default function AccountSettingsPage() {

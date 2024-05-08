@@ -12,6 +12,8 @@ session_start();
 
 if(isset($_SESSION['idUzivatel'])) {
 
+    include("image_delete.php");
+
     $idUzivatel = $_SESSION['idUzivatel'];
     $random_hash = bin2hex(random_bytes(100));
     
