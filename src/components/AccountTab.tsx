@@ -84,9 +84,10 @@ export default function AccountTab() {
 
   return (
     <Tabs defaultValue="account" className="w-[400px]">
-      <TabsList className="grid w-full grid-cols-2">
+      <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="account">Účet</TabsTrigger>
         <TabsTrigger value="password">Heslo</TabsTrigger>
+        <TabsTrigger value="profile_picture">Obrázek</TabsTrigger>
       </TabsList>
       <TabsContent value="account">
         <Card>
@@ -121,7 +122,7 @@ export default function AccountTab() {
           <CardHeader>
             <CardTitle>Heslo</CardTitle>
             <CardDescription>
-              Zde můžete změnit své heslo. Po dokončení změn klikněte na tlačítko "uložit heslo.""
+              Zde můžete změnit své heslo. Po dokončení změn klikněte na tlačítko "uložit heslo."
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
@@ -137,6 +138,22 @@ export default function AccountTab() {
           <CardFooter>
             <Button>Uložit heslo</Button>
           </CardFooter>
+        </Card>
+      </TabsContent>
+      <TabsContent value="profile_picture">
+        <Card>
+          <CardHeader>
+            <CardTitle>Profilový obrázek</CardTitle>
+            <CardDescription>
+              Zde si můžete nahrát svůj vlastní profilový obrázek.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <div className="space-y-1">
+              <Label htmlFor="pictureinput">Zvolte si obrázek</Label>
+              <ImageUpload />
+            </div>
+          </CardContent>
         </Card>
       </TabsContent>
     </Tabs>

@@ -13,9 +13,24 @@ import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import axios from "axios";
 import Link from 'next/link';
-import ImageUpload from "./ImageUpload";
+import { useEffect, useState } from "react";
 
 export default function AccountSettingsPage() {
+
+    useEffect(() => {
+      axios.post("http://localhost/pvd-project/server/image_load.php")
+        .then(function(response) {
+          console.log(response.data);
+          if(response.data != false) {
+            setCestaKObrazku(response.data);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        })
+    }, []);
+
+    const[cestaKObrazku, setCestaKObrazku] = useState("");
   
     const jmeno = sessionStorage.getItem("jmeno");
     const prijmeni = sessionStorage.getItem("prijmeni");
@@ -27,7 +42,6 @@ export default function AccountSettingsPage() {
             .then(function(response) {
                 sessionStorage.removeItem("jmeno");
                 sessionStorage.removeItem("prijmeni");
-                sessionStorage.setItem("isLoggedIn", "false");
                 window.location.reload();
             })
             .catch(function(error) {
@@ -41,7 +55,7 @@ export default function AccountSettingsPage() {
     <Dialog>
       <DialogTrigger asChild>
         <Avatar>
-            <AvatarImage className="cursor-pointer" src="https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" />
+            <AvatarImage className="cursor-pointer" src={(cestaKObrazku == "" ? "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" : "http://localhost/pvd-project" + cestaKObrazku)} />
             <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </DialogTrigger>

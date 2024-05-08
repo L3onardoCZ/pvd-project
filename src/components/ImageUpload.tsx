@@ -9,10 +9,13 @@ import { Button } from "@/components/ui/button"
 
 export default function ImageUpload() {
   const [selectedImage, setSelectedImage] = useState();
+  const [fileExtension, setFileExtension] = useState();
 
   const handleImageUpload = event => {
     let reader = new FileReader();
     let file = event.target.files[0];
+
+    setFileExtension(file.name.split('.').pop());
 
     reader.onloadend = () => {
       setSelectedImage(reader.result);
@@ -25,12 +28,13 @@ export default function ImageUpload() {
     let base64Image = selectedImage.split(';base64,').pop();
 
     // Odeslání obrázku na server
-    axios.post('/api/upload', { image: base64Image })
+    axios.post("http://localhost/pvd-project/server/image_upload.php", { "image": base64Image, "fileExtension": fileExtension })
       .then(response => {
         if (response.status === 200) {
           console.log('Image uploaded successfully');
+          window.location.reload();
         } else {
-          console.error('Image upload failed');
+          alert("Nahrání obrázku selhalo.");
         }
       })
       .catch(error => {
@@ -40,8 +44,8 @@ export default function ImageUpload() {
 
   return (
     <>
-      <Input className='' type="file" onChange={handleImageUpload} />
-      <Button className='w-fit' onClick={handleSubmit}>Upload</Button>
+      <Input id='pictureinput' type="file" onChange={handleImageUpload} />
+      <Button className='w-fit' onClick={handleSubmit}>Nahrát</Button>
     </>
   );
 }
