@@ -148,11 +148,10 @@ export default function AccountTab() {
               Zde si můžete nahrát svůj vlastní profilový obrázek.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label htmlFor="pictureinput">Zvolte si obrázek</Label>
+          
+          <CardContent className="space-y-6">
+              <Label htmlFor="pictureinput" className="cursor-pointer">Zvolte si obrázek</Label>
               <ImageUpload />
-            </div>
           </CardContent>
         </Card>
       </TabsContent>
