@@ -11,9 +11,15 @@ session_start();
 <?php
 
 if(isset($_SESSION['idUzivatel'])) {
-    echo json_encode(true);
+    $jmenoUzivatel = $_SESSION['jmenoUzivatel'];
+    $prijmeniUzivatel = $_SESSION['prijmeniUzivatel'];
+
+    $data = array("boolean" => true, "jmeno" => $jmenoUzivatel, "prijmeni" => $prijmeniUzivatel);
+    
+    echo json_encode($data);
 } else {
-    echo json_encode(false);
+    $data = array("boolean" => false);
+    echo json_encode($data);
     session_destroy();
 }
 

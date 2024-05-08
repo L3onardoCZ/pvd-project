@@ -9,6 +9,7 @@ session_start();
 ?>
 
 <?php
+
 $data = json_decode(file_get_contents("php://input"), true);
 if(isset($data["email"]) && isset($data["heslo"])) {
     $email = $data["email"];
@@ -29,6 +30,8 @@ $row = $result->fetch_assoc();
 if(isset($row["hesloUzivatel"])) {
     $hash = $row["hesloUzivatel"];
     $_SESSION['idUzivatel'] = $row["idUzivatel"];
+    $_SESSION['jmenoUzivatel'] = $row["jmenoUzivatel"];
+    $_SESSION['prijmeniUzivatel'] = $row["prijmeniUzivatel"];
 } else $hash = "";
 
 if (password_verify($heslo, $hash) == true) {

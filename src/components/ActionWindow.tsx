@@ -36,8 +36,10 @@ export default function ActionWindow(){
     useEffect(() => {
         axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
             .then(function(response) {
-                console.log(response.data);
-                setIsLoggedIn(response.data);
+                console.log(response.data.boolean);
+                setIsLoggedIn(response.data.boolean);
+                sessionStorage.setItem("jmeno", response.data.jmeno);
+                sessionStorage.setItem("prijmeni", response.data.prijmeni);
             })
             .catch(function(error) {
                 console.log(error);
