@@ -44,7 +44,7 @@ export default function ImageUpload() {
 
   return (
     <>
-      <Input id='pictureinput' type="file" onChange={handleImageUpload} />
+      <Input id='pictureinput' className="cursor-pointer" type="file" onChange={handleImageUpload} />
       <Button className='w-fit' onClick={handleSubmit}>Nahrát</Button>
     </>
   );
