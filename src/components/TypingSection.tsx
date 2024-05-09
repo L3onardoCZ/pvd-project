@@ -111,6 +111,7 @@ export default function TypingSection() {
                 className="text-xl pattern" style={textContainerStyle}>
                     {renderText()}
                 </motion.p>
+                
                 <motion.div
                 ref={ref}
                 initial={{ y: 100, opacity: 0 }}
