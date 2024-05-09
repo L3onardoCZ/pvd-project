@@ -85,7 +85,7 @@ export default function TypingSection() {
 
     const [ref, inView] = useInView({
         triggerOnce: true,
-        threshold: 1,
+        threshold: 0.1,
       });
 
     return (
@@ -111,7 +111,7 @@ export default function TypingSection() {
                 className="text-xl pattern" style={textContainerStyle}>
                     {renderText()}
                 </motion.p>
-                
+
                 <motion.div
                 ref={ref}
                 initial={{ y: 100, opacity: 0 }}
