@@ -1,3 +1,5 @@
+// @ts-nocheck
+"use client"
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,7 +18,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 
-export default function AccountSettingsPage() {
+export default function AccountSettingsPage({isLoggedIn, jmeno, prijmeni}) {
 
     useEffect(() => {
       axios.post("http://localhost/pvd-project/server/image_load.php")
@@ -32,17 +34,12 @@ export default function AccountSettingsPage() {
     }, []);
 
     const[cestaKObrazku, setCestaKObrazku] = useState("");
-  
-    const jmeno = sessionStorage.getItem("jmeno");
-    const prijmeni = sessionStorage.getItem("prijmeni");
 
     axios.defaults.withCredentials = true;
 
     const handleLogout = () => {
         axios.post("http://localhost/pvd-project/server/logout.php")
             .then(function(response) {
-                sessionStorage.removeItem("jmeno");
-                sessionStorage.removeItem("prijmeni");
                 window.location.reload();
             })
             .catch(function(error) {
