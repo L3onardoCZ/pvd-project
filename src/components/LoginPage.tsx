@@ -65,6 +65,7 @@ export default function LoginPage({isLoggedIn, jmeno, prijmeni}) {
             Vyplň e-mail a heslo.
           </DialogDescription>
         </DialogHeader>
+        <form>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
@@ -92,10 +93,12 @@ export default function LoginPage({isLoggedIn, jmeno, prijmeni}) {
           </div>
           {showError && <p className="text-red-500">Zadal/a jste špatně e-mail nebo heslo. Zkuste to znovu.</p>}
         </div>
+        
         <DialogFooter>
           <RegisterPage />
           <Button className="grow" type="submit" onClick={handleLogin}>Přihlásit se</Button>
         </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   )
