@@ -3,6 +3,8 @@
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+import { motion } from "framer-motion";
 import texts from "./texts.json"; 
 import "./typingsection.css";
 
@@ -81,8 +83,20 @@ export default function TypingSection() {
         return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}.${centiseconds < 10 ? "0" : ""}${centiseconds}`;
     };
 
+    const [ref, inView] = useInView({
+        triggerOnce: true,
+        threshold: 1,
+      });
+
     return (
-        <div className="w-full flex justify-center">
+        <motion.div 
+            ref={ref}
+            initial={{ y: 100 }}
+            animate={{ y: inView ? 0 : 100 }}
+            transition={{ type: "spring", stiffness: 120, duration: 0.5}}
+        
+        
+        className="w-full flex justify-center">
             <div className="w-1/2 flex flex-col justify-center gap-4">
                 <Progress value={progress} />
                 <p className="text-xl pattern" style={textContainerStyle}>
@@ -99,6 +113,6 @@ export default function TypingSection() {
                 <p className="text-lg">Time Elapsed: {formatTime(timeElapsed)}</p>
 
             </div>
-        </div>
+        </motion.div>
     );
 }
