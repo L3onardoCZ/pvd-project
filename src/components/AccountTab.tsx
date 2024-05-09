@@ -35,8 +35,6 @@ export default function AccountTab() {
         setAktualniJmeno(response.data.jmeno);
         setAktualniPrijmeni(response.data.prijmeni);
         setAktualniEmail(response.data.email);
-        sessionStorage.setItem("jmeno", response.data.jmeno);
-        sessionStorage.setItem("prijmeni", response.data.prijmeni);
       })
       .catch(function(error) {
         console.log(error);
@@ -53,10 +51,19 @@ export default function AccountTab() {
     setNovyEmail(String(aktualniEmail));
   }, [aktualniJmeno, aktualniPrijmeni, aktualniEmail])
 
-  const handleAccountChange = () => {
+  const handleLogout = () => {
+    axios.post("http://localhost/pvd-project/server/logout.php")
+        .then(function(response) {
+            window.location.reload();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Nelze se připojit k serveru. Zkuste to prosím později.");
+            window.location.reload();
+        })
+}
 
-    sessionStorage.setItem("jmeno", noveJmeno);
-    sessionStorage.setItem("prijmeni", novePrijmeni);
+  const handleAccountChange = () => {
 
     let data = {
       "jmeno": noveJmeno,
@@ -68,7 +75,8 @@ export default function AccountTab() {
       .then(function(response) {
         console.log(response.data);
         if(response.data != false) {
-          window.location.reload();
+          alert("Aby se projevily změny na Vašem účtu, budete teď odhlášeni. Po odhlášení se znovu přihlaste.");
+          handleLogout();
         } else setShowError(true);
       })
       .catch(function(error) {

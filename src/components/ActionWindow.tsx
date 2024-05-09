@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 "use client"
 
 import {
@@ -30,22 +30,7 @@ import { motion } from "framer-motion";
 
 
 
-export default function ActionWindow(){
-
-    const[isLoggedIn, setIsLoggedIn] = useState(false);
-    useEffect(() => {
-        axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
-            .then(function(response) {
-                console.log(response.data.boolean);
-                setIsLoggedIn(response.data.boolean);
-                sessionStorage.setItem("jmeno", response.data.jmeno);
-                sessionStorage.setItem("prijmeni", response.data.prijmeni);
-            })
-            .catch(function(error) {
-                console.log(error);
-                setIsLoggedIn(false);
-            })
-      }, []);
+export default function ActionWindow({isLoggedIn, jmeno, prijmeni}){
     
     const [ref, inView] = useInView({
         triggerOnce: true,
@@ -63,7 +48,7 @@ export default function ActionWindow(){
             className="bg-[#ffffff75] p-4
                                 dark:bg-[#140b0b6c] fixed rounded-full z-40 m-5 flex gap-5">
                 <ModeToggle />
-                <LoginPage />
+                <LoginPage isLoggedIn={isLoggedIn} jmeno={jmeno} prijmeni={prijmeni}/>
                 <Menubar>
                     <MenubarMenu>
                         <MenubarTrigger className="cursor-pointer">Menu</MenubarTrigger>

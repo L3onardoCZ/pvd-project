@@ -13,6 +13,22 @@ import axios from "axios";
 
 export default function Home() {
 
+  const[isLoggedIn, setIsLoggedIn] = useState(false);
+  const[prijmeni, setPrijmeni] = useState("");
+  const[jmeno, setJmeno] = useState();
+    useEffect(() => {
+        axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
+            .then(function(response) {
+                console.log(response.data.boolean);
+                setIsLoggedIn(response.data.boolean);
+                setJmeno(response.data.jmeno);
+                setPrijmeni(response.data.prijmeni);
+            })
+            .catch(function(error) {
+                console.log(error);
+                setIsLoggedIn(false);
+            })
+      }, []);
 
   return (
     <>
@@ -20,7 +36,7 @@ export default function Home() {
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta name="description" content="PVD-project je webová aplikace, která slouží k procvičování Vaší klávesnicové gramotnosti." />
       <meta name="keywords" content="psaní všemi deseti, psani vsemi deseti, PVD, PVD-PROJECT, pvd-project, all ten fingers" />
-      <Header/>
+      <Header isLoggedIn={isLoggedIn} jmeno={jmeno} prijmeni={prijmeni}/>
       <Typography />
       <CardSection />
       <Footer />

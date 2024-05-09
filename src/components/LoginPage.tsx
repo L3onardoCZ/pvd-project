@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -18,25 +19,9 @@ import RegisterPage from "./RegisterPage";
 import AccountSettingsPage from "./AccountSettingsPage";
 
 
-export default function LoginPage() {
+export default function LoginPage({isLoggedIn, jmeno, prijmeni}) {
  
   axios.defaults.withCredentials = true;
-
-  const[isLoggedIn, setIsLoggedIn] = useState(false);
-    useEffect(() => {
-        axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
-            .then(function(response) {
-                console.log(response.data);
-                setIsLoggedIn(response.data.boolean);
-                sessionStorage.setItem("jmeno", response.data.jmeno);
-                sessionStorage.setItem("prijmeni", response.data.prijmeni);
-            })
-            .catch(function(error) {
-                console.log(error);
-                setIsLoggedIn(false);
-            })
-      }, []);
- 
 
   const[email, setEmail] = useState("");
   const[heslo, setHeslo] = useState("");
@@ -54,8 +39,6 @@ export default function LoginPage() {
     .then(function(response) {
         console.log(response.data);
         if(response.data !== false) {
-          sessionStorage.setItem("jmeno", response.data.jmeno);
-          sessionStorage.setItem("prijmeni", response.data.prijmeni);
           window.location.reload();
         } else {
           setShowError(true);
@@ -73,7 +56,7 @@ export default function LoginPage() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-      {(isLoggedIn == true) ? (<AccountSettingsPage />) : (<Button variant="outline" className="">Přihlásit se</Button>)}
+      {(isLoggedIn == true) ? (<AccountSettingsPage isLoggedIn={isLoggedIn} jmeno={jmeno} prijmeni={prijmeni}/>) : (<Button variant="outline" className="">Přihlásit se</Button>)}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
