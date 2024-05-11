@@ -3,6 +3,8 @@
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+import { motion } from "framer-motion";
 import texts from "./texts.json"; 
 import "./typingsection.css";
 
@@ -81,22 +83,58 @@ export default function TypingSection() {
         return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}.${centiseconds < 10 ? "0" : ""}${centiseconds}`;
     };
 
+    const [ref, inView] = useInView({
+        triggerOnce: true,
+        threshold: 0.1,
+      });
+
     return (
         <div className="w-full flex justify-center">
             <div className="w-1/2 flex flex-col justify-center gap-4">
-                <Progress value={progress} />
-                <p className="text-xl pattern" style={textContainerStyle}>
+                <motion.div
+                    ref={ref}
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: inView ? 0 : 100, opacity: inView ? 1 : 0 }}
+                    transition={{ type: "spring", stiffness: 120, duration: 0.5}}
+                
+                >
+                    <Progress value={progress} />
+                </motion.div>
+
+                <motion.p 
+                    ref={ref}
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: inView ? 0 : 100, opacity: inView ? 1 : 0 }}
+                    transition={{ type: "spring", stiffness: 120, duration: 0.5, delay: 0.2}}
+                
+                
+                className="text-xl pattern" style={textContainerStyle}>
                     {renderText()}
-                </p>
-                <Textarea
+                </motion.p>
+
+                <motion.div
+                ref={ref}
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: inView ? 0 : 100, opacity: inView ? 1 : 0 }}
+                transition={{ type: "spring", stiffness: 120, duration: 0.5, delay: 0.4}}
+                
+                >
+                    <Textarea
                     className="textarea resize-none h-[200px] text-xl"
                     onChange={handleTextChange}
                     placeholder={currentText}
                     disabled={progress >= 100}
                     
-                />
+                    />
+                </motion.div>
 
-                <p className="text-lg">Time Elapsed: {formatTime(timeElapsed)}</p>
+                <motion.p 
+                ref={ref}
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: inView ? 0 : 100, opacity: inView ? 1 : 0 }}
+                transition={{ type: "spring", stiffness: 120, duration: 0.5, delay: 0.6}}
+                
+                className="text-lg">Time Elapsed: {formatTime(timeElapsed)}</motion.p>
 
             </div>
         </div>

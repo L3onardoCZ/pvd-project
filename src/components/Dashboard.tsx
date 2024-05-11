@@ -1,5 +1,10 @@
+"use client"
+
 import AccountTab from "./AccountTab"
 import Leaderboard from "./Leaderboard"
+import { useInView } from "react-intersection-observer";
+import { motion } from "framer-motion";
+
 import {
     Avatar,
     AvatarFallback,
@@ -9,9 +14,21 @@ import {
 
 
 export default function Dashboard(){
+    const [ref, inView] = useInView({
+        triggerOnce: true,
+        threshold: 0.5,
+      });
+
+
     return(
         <>
-            <div className="w-full flex justify-center gap-8">
+            <motion.div 
+                ref={ref}
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: inView ? 0 : 100, opacity: inView ? 1 : 0 }}
+                transition={{ type: "spring", stiffness: 120, duration: 0.5}}
+            
+            className="w-full flex justify-center gap-8">
                 <p>Placement</p>
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                     2
@@ -24,11 +41,18 @@ export default function Dashboard(){
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                     24
                 </h1>
-            </div>
-            <div className="w-full flex justify-center gap-8 mt-8">
+            </motion.div>
+            <motion.div 
+                ref={ref}
+                initial={{ y: 100 , opacity: 0}}
+                animate={{ y: inView ? 0 : 100, opacity: inView? 1 : 0 }}
+                transition={{ type: "spring", stiffness: 120, duration: 0.5, delay: 0.2}}
+                
+            
+            className="w-full flex justify-center gap-8 mt-8">
                 <AccountTab/>
                 <Leaderboard/>
-            </div>
+            </motion.div>
         </>
     )
 }
