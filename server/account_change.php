@@ -15,7 +15,7 @@ $idUzivatel = $_SESSION['idUzivatel'];
 
 include("db_connect.php");
 
-$stmt = $conn->prepare("SELECT emailUzivatel FROM uzivatele WHERE emailUzivatel= ?");
+$stmt = $conn->prepare("SELECT idUzivatel, emailUzivatel FROM uzivatele WHERE emailUzivatel= ?");
 $stmt->bind_param("s", $data["email"]);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -25,7 +25,7 @@ $stmt->close();
 $conn->close();
 
 if(!empty($data["jmeno"]) && !empty($data["prijmeni"]) && !empty($data["email"])) {
-    if(!isset($row["emailUzivatel"])) {
+    if(!isset($row["emailUzivatel"]) || $row["idUzivatel"] == $idUzivatel) {
         include("db_connect.php");
     
         $stmt = $conn->prepare("UPDATE uzivatele SET jmenoUzivatel= ?, prijmeniUzivatel= ?, emailUzivatel= ? WHERE idUzivatel=$idUzivatel");
