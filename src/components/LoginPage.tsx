@@ -28,7 +28,8 @@ export default function LoginPage({isLoggedIn, jmeno, prijmeni}) {
 
   const[showError, setShowError] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = (event) => {
+    event.preventDefault();
 
     let data = {
       "email": email,
