@@ -37,6 +37,7 @@ export default function AccountTab({isLoggedIn}) {
   const[showPasswordError, setShowPasswordError] = useState(false);
   const[showPassword1Error, setShowPassword1Error] = useState(false);
   const[showSuccess, setShowSuccess] = useState(false);
+  const[emailError, setEmailError] = useState(false);
 
   const[aktualniJmeno, setAktualniJmeno] = useState("");
   const[aktualniPrijmeni, setAktualniPrijmeni] = useState("");
@@ -93,9 +94,11 @@ export default function AccountTab({isLoggedIn}) {
     axios.post("http://localhost/pvd-project/server/account_change.php", data)
       .then(function(response) {
         console.log(response.data);
-        if(response.data != false) {
+        if(response.data != false && response.data != "email") {
           alert("Aby se projevily změny na Vašem účtu, budete teď odhlášeni. Po odhlášení se znovu přihlaste.");
           handleLogout();
+        } else if(response.data == "email") {
+          setEmailError(true);
         } else setShowError(true);
       })
       .catch(function(error) {
@@ -160,6 +163,7 @@ export default function AccountTab({isLoggedIn}) {
               <Label htmlFor="username">E-mail</Label>
               <Input id="username" defaultValue={aktualniEmail} onChange={(event) => {setNovyEmail(event.target.value); setShowError(false)}} />
               {showError && <p className="text-red-500">Musíte mít vyplněna všechna pole.</p>}
+              {emailError && <p className="text-red-500">Tento e-mail už je přiřazen k jinému účtu.</p>}
             </div>
           </CardContent>
           <CardFooter>
