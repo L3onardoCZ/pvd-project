@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { Textarea } from "@/components/ui/textarea";
@@ -7,8 +8,18 @@ import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 import texts from "./texts.json"; 
 import "./typingsection.css";
+import { useRouter } from 'next/navigation';
 
-export default function TypingSection() {
+export default function TypingSection({isLoggedIn}) {
+    /* tohle si kdyžtak zakomentářuj */
+    const router = useRouter();
+
+    useEffect(() => {
+      if (isLoggedIn == false) {
+        router.push('/');
+      }
+    }, [isLoggedIn]);
+    /* tohle si kdyžtak zakomentářuj */
     const [progress, setProgress] = useState<number>(0);
     const [typedText, setTypedText] = useState<string>("");
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);

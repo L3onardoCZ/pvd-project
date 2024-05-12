@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 import CardSection from "../components/CardSection";
 import Typography from "../components/Typography";
 import axios from "axios";
+import { useRouter } from 'next/router';
 
 
 export default function Home() {

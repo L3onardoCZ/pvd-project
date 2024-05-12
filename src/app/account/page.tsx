@@ -11,7 +11,7 @@ import ScrollBar from "@/components/ScrollBar";
 
 export default function Account(){
 
-    const[isLoggedIn, setIsLoggedIn] = useState(false);
+    const[isLoggedIn, setIsLoggedIn] = useState();
     const[prijmeni, setPrijmeni] = useState("");
     const[jmeno, setJmeno] = useState();
         useEffect(() => {
@@ -36,7 +36,7 @@ export default function Account(){
             <meta name="keywords" content="psaní všemi deseti, psani vsemi deseti, PVD, PVD-PROJECT, pvd-project, all ten fingers" />
             <ScrollBar/>
             <SmallHeader isLoggedIn={isLoggedIn} jmeno={jmeno} prijmeni={prijmeni}/>
-            <Dashboard/>
+            <Dashboard isLoggedIn={isLoggedIn}/>
             <SmallFooter/>
         </>
     )

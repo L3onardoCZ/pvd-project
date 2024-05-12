@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 
 import AccountTab from "./AccountTab"
@@ -13,7 +14,7 @@ import {
    
 
 
-export default function Dashboard(){
+export default function Dashboard({isLoggedIn}){
     const [ref, inView] = useInView({
         triggerOnce: true,
         threshold: 0.5,
@@ -50,7 +51,7 @@ export default function Dashboard(){
                 
             
             className="w-full flex justify-center gap-8 mt-8">
-                <AccountTab/>
+                <AccountTab isLoggedIn={isLoggedIn}/>
                 <Leaderboard/>
             </motion.div>
         </>

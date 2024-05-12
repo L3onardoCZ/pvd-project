@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -20,9 +21,18 @@ import {
 import ImageUpload from "./ImageUpload"
 import { useState, useEffect } from "react"
 import axios from "axios"
+import { useRouter } from 'next/navigation'
  
-export default function AccountTab() {
+export default function AccountTab({isLoggedIn}) {
+  /* tohle si kdyžtak zakomentářuj */
+  const router = useRouter();
 
+  useEffect(() => {
+    if (isLoggedIn == false) {
+      router.push('/');
+    }
+  }, [isLoggedIn]);
+  /* tohle si kdyžtak zakomentářuj */
   const[showError, setShowError] = useState(false);
   const[showPasswordError, setShowPasswordError] = useState(false);
   const[showPassword1Error, setShowPassword1Error] = useState(false);
@@ -35,6 +45,7 @@ export default function AccountTab() {
   const[aktualniHeslo, setAktualniHeslo] = useState("");
 
   useEffect(() => {
+
     axios.post("http://localhost/pvd-project/server/account_load.php")
       .then(function(response) {
         setAktualniJmeno(response.data.jmeno);
