@@ -25,6 +25,8 @@ export default function AccountTab() {
 
   const[showError, setShowError] = useState(false);
   const[showPasswordError, setShowPasswordError] = useState(false);
+  const[showPassword1Error, setShowPassword1Error] = useState(false);
+  const[showSuccess, setShowSuccess] = useState(false);
 
   const[aktualniJmeno, setAktualniJmeno] = useState("");
   const[aktualniPrijmeni, setAktualniPrijmeni] = useState("");
@@ -49,6 +51,7 @@ export default function AccountTab() {
   const[novyEmail, setNovyEmail] = useState("");
 
   const[noveHeslo, setNoveHeslo] = useState("");
+  const[potvrditHeslo, setPotvrditHeslo] = useState("");
 
   useEffect(() => {
     setNoveJmeno(String(aktualniJmeno));
@@ -93,22 +96,29 @@ export default function AccountTab() {
 
   const handlePasswordChange = () => {
 
-    let data = {
-      "aktualniHeslo": aktualniHeslo,
-      "noveHeslo": noveHeslo
-    }
-    
-    axios.post("http://localhost/pvd-project/server/password_change.php", data)
-      .then(function(response) {
-        console.log(response.data);
-        if(response.data != true) {
-          setShowPasswordError(true);
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-        alert("Nelze se připojit k serveru. Zkuste to prosím později.");
-      })
+    if(noveHeslo == potvrditHeslo) {
+      let data = {
+        "aktualniHeslo": aktualniHeslo,
+        "noveHeslo": noveHeslo
+      }
+      
+      axios.post("http://localhost/pvd-project/server/password_change.php", data)
+        .then(function(response) {
+          console.log(response.data);
+          if(response.data != true) {
+            setShowPasswordError(true);
+          } else {
+            setShowSuccess(true);
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          alert("Nelze se připojit k serveru. Zkuste to prosím později.");
+        })
+    } else setShowPassword1Error(true);
   }
 
   return (
@@ -161,8 +171,14 @@ export default function AccountTab() {
             </div>
             <div className="space-y-1">
               <Label htmlFor="new">Nové heslo</Label>
-              <Input id="new" type="password" onChange={(event) => {setNoveHeslo(event.target.value); setShowPasswordError(false)}}/>
+              <Input id="new" type="password" onChange={(event) => {setNoveHeslo(event.target.value); setShowPasswordError(false); setShowPassword1Error(false)}}/>
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="new">Potvrďte nové heslo</Label>
+              <Input id="submitpassword" type="password" onChange={(event) => {setPotvrditHeslo(event.target.value); setShowPasswordError(false); setShowPassword1Error(false)}}/>
+              {showPassword1Error && <p className="text-red-500">Zadaná hesla se neshodují.</p>}
               {showPasswordError && <p className="text-red-500">Aktuální heslo je zadáno špatně. Zkuste to prosím znovu.</p>}
+              {showSuccess && <p className="text-lime-500">Heslo bylo úspěšně změněno.</p>}
             </div>
           </CardContent>
           <CardFooter>
