@@ -24,10 +24,13 @@ import axios from "axios"
 export default function AccountTab() {
 
   const[showError, setShowError] = useState(false);
+  const[showPasswordError, setShowPasswordError] = useState(false);
 
   const[aktualniJmeno, setAktualniJmeno] = useState("");
   const[aktualniPrijmeni, setAktualniPrijmeni] = useState("");
   const[aktualniEmail, setAktualniEmail] = useState("");
+
+  const[aktualniHeslo, setAktualniHeslo] = useState("");
 
   useEffect(() => {
     axios.post("http://localhost/pvd-project/server/account_load.php")
@@ -44,6 +47,8 @@ export default function AccountTab() {
   const[noveJmeno, setNoveJmeno] = useState("");
   const[novePrijmeni, setNovePrijmeni] = useState("");
   const[novyEmail, setNovyEmail] = useState("");
+
+  const[noveHeslo, setNoveHeslo] = useState("");
 
   useEffect(() => {
     setNoveJmeno(String(aktualniJmeno));
@@ -87,7 +92,23 @@ export default function AccountTab() {
   }
 
   const handlePasswordChange = () => {
+
+    let data = {
+      "aktualniHeslo": aktualniHeslo,
+      "noveHeslo": noveHeslo
+    }
     
+    axios.post("http://localhost/pvd-project/server/password_change.php", data)
+      .then(function(response) {
+        console.log(response.data);
+        if(response.data != true) {
+          setShowPasswordError(true);
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+        alert("Nelze se připojit k serveru. Zkuste to prosím později.");
+      })
   }
 
   return (
@@ -136,15 +157,16 @@ export default function AccountTab() {
           <CardContent className="space-y-2">
             <div className="space-y-1">
               <Label htmlFor="current">Aktuální heslo</Label>
-              <Input id="current" type="password" />
+              <Input id="current" type="password" onChange={(event) => {setAktualniHeslo(event.target.value); setShowPasswordError(false)}}/>
             </div>
             <div className="space-y-1">
               <Label htmlFor="new">Nové heslo</Label>
-              <Input id="new" type="password" />
+              <Input id="new" type="password" onChange={(event) => {setNoveHeslo(event.target.value); setShowPasswordError(false)}}/>
+              {showPasswordError && <p className="text-red-500">Aktuální heslo je zadáno špatně. Zkuste to prosím znovu.</p>}
             </div>
           </CardContent>
           <CardFooter>
-            <Button>Uložit heslo</Button>
+            <Button onClick={handlePasswordChange}>Uložit heslo</Button>
           </CardFooter>
         </Card>
       </TabsContent>

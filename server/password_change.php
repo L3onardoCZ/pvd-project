@@ -10,12 +10,12 @@ session_start();
 
 <?php
 
-$data = json_decode(file_get_contents("php://input"));
+$data = json_decode(file_get_contents("php://input"), true);
 
 $aktualniHeslo = $data["aktualniHeslo"];
 $noveHeslo = $data["noveHeslo"];
 
-if(!empty($aktualniHeslo) && !empty($noveHeslo) && $_SERVER["request_method"] == "POST" && isset($_SESSION['idUzivatel'])) {
+if(!empty($aktualniHeslo) && !empty($noveHeslo) && isset($_SESSION['idUzivatel'])) {
     
     include("db_connect.php");
 
@@ -40,8 +40,7 @@ if(!empty($aktualniHeslo) && !empty($noveHeslo) && $_SERVER["request_method"] ==
     
         include("db_connect.php");
 
-        $stmt = $conn->prepare("UPDATE uzivatele (hesloUzivatel)
-        VALUES (?) WHERE idUzivatel='$idUzivatel'");
+        $stmt = $conn->prepare("UPDATE uzivatele SET hesloUzivatel= ? WHERE idUzivatel='$idUzivatel'");
 
         $stmt->bind_param("s", $noveHeslo);
         $stmt->execute();
