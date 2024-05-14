@@ -27,8 +27,8 @@ if(isset($_SESSION['idUzivatel'])) {
     $decodedImage = base64_decode($base64Image);
 
 
-    $filePath = '../images/'. $random_hash .'.' . $fileExtension;
-    $filePathDatabase = '/images/'. $random_hash .'.' . $fileExtension;
+    $filePath = '../images/'. $random_hash . $idUzivatel . '.' . $fileExtension;
+    $filePathDatabase = '/images/'. $random_hash . $idUzivatel . '.' . $fileExtension;
 
     file_put_contents($filePath, $decodedImage);
 
