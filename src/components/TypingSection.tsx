@@ -9,8 +9,13 @@ import { motion } from "framer-motion";
 import texts from "./texts.json"; 
 import "./typingsection.css";
 import { useRouter } from 'next/navigation';
+import axios from "axios";
+import { json } from "stream/consumers";
 
 export default function TypingSection({isLoggedIn}) {
+
+    axios.defaults.withCredentials = true;
+    
     /* tohle si kdyžtak zakomentářuj */
     const router = useRouter();
 
@@ -50,6 +55,12 @@ export default function TypingSection({isLoggedIn}) {
             if (timer) clearInterval(timer);
         };
     }, [progress]);
+
+    useEffect(() => {
+        if(progress == 100) {
+            zapsatVysledek();
+        }
+    }, [progress])
 
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const typed: string = event.target.value;
@@ -99,6 +110,26 @@ export default function TypingSection({isLoggedIn}) {
         threshold: 0.1,
       });
 
+    const zapsatVysledek = () => {
+
+        let wpm = 100 / (timeElapsed / 60);
+        wpm = wpm.toFixed(2);
+        
+        let data = {
+            "timeElapsed": timeElapsed,
+            "wpm": wpm
+        }
+
+        axios.post("http://localhost/pvd-project/server/stats_upload.php", data)
+            .then(function(response) {
+                console.log(response.data);
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+
+    }
+
     return (
         <div className="w-full flex justify-center">
             <div className="w-1/2 flex flex-col justify-center gap-4">
@@ -145,7 +176,7 @@ export default function TypingSection({isLoggedIn}) {
                 animate={{ y: inView ? 0 : 100, opacity: inView ? 1 : 0 }}
                 transition={{ type: "spring", stiffness: 120, duration: 0.5, delay: 0.6}}
                 
-                className="text-lg">Time Elapsed: {formatTime(timeElapsed)}</motion.p>
+                className="text-lg">Uplynulý čas: {formatTime(timeElapsed)}</motion.p>
 
             </div>
         </div>
