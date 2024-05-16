@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 import CardSection from "../components/CardSection";
 import Typography from "../components/Typography";
 import axios from "axios";
+import HeroParallaxDemo from "@/components/HeroParallax";
 import { useRouter } from 'next/router';
 
 
@@ -40,6 +41,7 @@ export default function Home() {
       <Header isLoggedIn={isLoggedIn} jmeno={jmeno} prijmeni={prijmeni}/>
       <Typography />
       <CardSection />
+      <HeroParallaxDemo />
       <Footer />
       <BackgroundLetters />
 
