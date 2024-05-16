@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 
 export default function typing(){
 
-    const[isLoggedIn, setIsLoggedIn] = useState(false);
+    const[isLoggedIn, setIsLoggedIn] = useState();
     const[prijmeni, setPrijmeni] = useState("");
     const[jmeno, setJmeno] = useState();
         useEffect(() => {
@@ -35,7 +35,7 @@ export default function typing(){
             <meta name="keywords" content="psaní všemi deseti, psani vsemi deseti, PVD, PVD-PROJECT, pvd-project, all ten fingers" />
             <ScrollBar/>
             <SmallHeader isLoggedIn={isLoggedIn} jmeno={jmeno} prijmeni={prijmeni}/>
-            <TypingSection/>
+            <TypingSection isLoggedIn={isLoggedIn}/>
             <SmallFooter/>
 
         </>

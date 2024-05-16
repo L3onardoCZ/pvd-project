@@ -54,7 +54,7 @@ export default function AccountSettingsPage({isLoggedIn, jmeno, prijmeni}) {
       <DialogTrigger asChild>
         <Avatar>
             <AvatarImage className="cursor-pointer" src={(cestaKObrazku == "" ? "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" : "http://localhost/pvd-project" + cestaKObrazku)} />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback className="cursor-pointer" style={{fontSize: '10px'}}>Avatar</AvatarFallback>
         </Avatar>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
