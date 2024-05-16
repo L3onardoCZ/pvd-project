@@ -23,7 +23,6 @@ export default function AccountSettingsPage({isLoggedIn, jmeno, prijmeni}) {
     useEffect(() => {
       axios.post("http://localhost/pvd-project/server/image_load.php")
         .then(function(response) {
-          console.log(response.data);
           if(response.data != false) {
             setCestaKObrazku(response.data);
           }
