@@ -24,7 +24,7 @@ export default function TypingSection({isLoggedIn}) {
       }
     }, [isLoggedIn]);
     /* tohle si kdyžtak zakomentářuj */
-    
+    const [hasError, setHasError] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
     const [typedText, setTypedText] = useState<string>("");
     const [timeElapsed, setTimeElapsed] = useState<number>(0);
@@ -53,6 +53,8 @@ export default function TypingSection({isLoggedIn}) {
         }
     }, [progress]);
 
+    
+
     const startTimer = () => {
         if (!timerRunning) {
             setTimerRunning(true);
@@ -68,25 +70,30 @@ export default function TypingSection({isLoggedIn}) {
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const typed: string = event.target.value;
         setTypedText(typed);
-
+    
         const matchedText: string[] = typed.split(" ");
         let matchedLength: number = 0;
-
+        let hasError = false;
+    
         for (let i = 0; i < matchedText.length; i++) {
             if (matchedText[i] === currentText.split(" ")[i]) {
                 matchedLength += matchedText[i].length + 1;
             } else {
+                hasError = true;
                 break;
             }
         }
-
+    
         const calculatedProgress: number = (matchedLength / currentText.length) * 100;
         setProgress(calculatedProgress > 100 ? 100 : calculatedProgress);
-
+    
         if (calculatedProgress > 0) {
             startTimer();
         }
+    
+        setHasError(hasError);
     };
+    
 
     const renderText = (): JSX.Element[] => {
         const words: string[] = currentText.split(" ");
@@ -163,11 +170,11 @@ export default function TypingSection({isLoggedIn}) {
                     transition={{ type: "spring", stiffness: 120, duration: 0.5, delay: 0.4}}
                 >
                     <Textarea
-                        className="textarea resize-none h-[200px] text-xl"
-                        onChange={handleTextChange}
-                        placeholder={currentText}
-                        disabled={progress >= 100}
-                    />
+                    className={`textarea resize-none h-[200px] text-xl transition duration-500 ease-in-out`}
+                    onChange={handleTextChange}
+                    placeholder={currentText}
+                    disabled={progress >= 100}
+                />
                 </motion.div>
 
                 <motion.p 
