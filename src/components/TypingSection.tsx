@@ -39,7 +39,14 @@ export default function TypingSection({isLoggedIn}) {
     }, []); 
 
     useEffect(() => {
-        if (progress === 100 && timerRef.current) {
+        if (progress === 0) {
+            if (timerRef.current) {
+                clearInterval(timerRef.current);
+                timerRef.current = null;
+            }
+            setTimeElapsed(0);
+            setTimerRunning(false);
+        } else if (progress === 100 && timerRef.current) {
             clearInterval(timerRef.current);
             setTimerRunning(false);
             zapsatVysledek();
@@ -49,7 +56,7 @@ export default function TypingSection({isLoggedIn}) {
     const startTimer = () => {
         if (!timerRunning) {
             setTimerRunning(true);
-            const startTime = Date.now();
+            const startTime = Date.now() - timeElapsed * 10;
             timerRef.current = setInterval(() => {
                 const currentTime = Date.now();
                 const elapsedTime = Math.floor((currentTime - startTime) / 10);
@@ -61,7 +68,6 @@ export default function TypingSection({isLoggedIn}) {
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const typed: string = event.target.value;
         setTypedText(typed);
-        startTimer();
 
         const matchedText: string[] = typed.split(" ");
         let matchedLength: number = 0;
@@ -76,6 +82,10 @@ export default function TypingSection({isLoggedIn}) {
 
         const calculatedProgress: number = (matchedLength / currentText.length) * 100;
         setProgress(calculatedProgress > 100 ? 100 : calculatedProgress);
+
+        if (calculatedProgress > 0) {
+            startTimer();
+        }
     };
 
     const renderText = (): JSX.Element[] => {
@@ -108,8 +118,7 @@ export default function TypingSection({isLoggedIn}) {
     });
 
     const zapsatVysledek = () => {
-        let wpm = 100 / (timeElapsed / 6000); 
-        wpm = wpm.toFixed(2);
+        let wpm = (100 / (timeElapsed / 6000)).toFixed(2);
 
         let data = {
             "timeElapsed": timeElapsed,
