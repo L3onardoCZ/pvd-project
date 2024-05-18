@@ -3,20 +3,19 @@
 
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 import texts from "./texts.json"; 
 import "./typingsection.css";
 import { useRouter } from 'next/navigation';
 import axios from "axios";
-import { json } from "stream/consumers";
 
 export default function TypingSection({isLoggedIn}) {
 
     axios.defaults.withCredentials = true;
-    
-    /* tohle si kdyžtak zakomentářuj */
+
+    /* tohle si kdyžtak zakomentářuj 
     const router = useRouter();
 
     useEffect(() => {
@@ -25,46 +24,44 @@ export default function TypingSection({isLoggedIn}) {
       }
     }, [isLoggedIn]);
     /* tohle si kdyžtak zakomentářuj */
+    
     const [progress, setProgress] = useState<number>(0);
     const [typedText, setTypedText] = useState<string>("");
-    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const [timeElapsed, setTimeElapsed] = useState<number>(0);
+    const [timerRunning, setTimerRunning] = useState<boolean>(false);
     const totalTextLength: number = 200;
     const [currentText, setCurrentText] = useState<string>(""); 
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
-
         const randomIndex: number = Math.floor(Math.random() * texts.length);
         setCurrentText(texts[randomIndex]);
     }, []); 
 
     useEffect(() => {
-        if (progress > 0 && progress < 100) {
-            const startTime = Date.now(); // Začáteční čas
-            const interval = setInterval(() => {
-                const currentTime = Date.now(); // Aktuální čas
-                const elapsedTime = Math.floor((currentTime - startTime) / 10); // Uplynulý čas v setinách sekundy
-                setTimeElapsed(elapsedTime);
-            }, 10); // Interval spouštěný každých 10 milisekund (pro přesnost setin sekundy)
-            setTimer(interval);
-        } else {
-            if (timer) clearInterval(timer);
-        }
-
-        return () => {
-            if (timer) clearInterval(timer);
-        };
-    }, [progress]);
-
-    useEffect(() => {
-        if(progress == 100) {
+        if (progress === 100 && timerRef.current) {
+            clearInterval(timerRef.current);
+            setTimerRunning(false);
             zapsatVysledek();
         }
-    }, [progress])
+    }, [progress]);
+
+    const startTimer = () => {
+        if (!timerRunning) {
+            setTimerRunning(true);
+            const startTime = Date.now();
+            timerRef.current = setInterval(() => {
+                const currentTime = Date.now();
+                const elapsedTime = Math.floor((currentTime - startTime) / 10);
+                setTimeElapsed(elapsedTime);
+            }, 10);
+        }
+    };
 
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const typed: string = event.target.value;
         setTypedText(typed);
+        startTimer();
 
         const matchedText: string[] = typed.split(" ");
         let matchedLength: number = 0;
@@ -99,26 +96,25 @@ export default function TypingSection({isLoggedIn}) {
     };
 
     const formatTime = (time: number): string => {
-        const minutes: number = Math.floor(time / 6000); // 100 setin sekundy = 1 minuta
-        const seconds: number = Math.floor((time % 6000) / 100); // Zbývající část pro sekundy
-        const centiseconds: number = time % 100; // Setiny sekundy
+        const minutes: number = Math.floor(time / 6000); 
+        const seconds: number = Math.floor((time % 6000) / 100); 
+        const centiseconds: number = time % 100; 
         return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}.${centiseconds < 10 ? "0" : ""}${centiseconds}`;
     };
 
     const [ref, inView] = useInView({
         triggerOnce: true,
         threshold: 0.1,
-      });
+    });
 
     const zapsatVysledek = () => {
-
-        let wpm = 100 / (timeElapsed / 60);
+        let wpm = 100 / (timeElapsed / 6000); 
         wpm = wpm.toFixed(2);
-        
+
         let data = {
             "timeElapsed": timeElapsed,
             "wpm": wpm
-        }
+        };
 
         axios.post("http://localhost/pvd-project/server/stats_upload.php", data)
             .then(function(response) {
@@ -126,9 +122,8 @@ export default function TypingSection({isLoggedIn}) {
             })
             .catch(function(error) {
                 console.log(error);
-            })
-
-    }
+            });
+    };
 
     return (
         <div className="w-full flex justify-center">
@@ -138,7 +133,6 @@ export default function TypingSection({isLoggedIn}) {
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: inView ? 0 : 100, opacity: inView ? 1 : 0 }}
                     transition={{ type: "spring", stiffness: 120, duration: 0.5}}
-                
                 >
                     <Progress value={progress} />
                 </motion.div>
@@ -148,36 +142,34 @@ export default function TypingSection({isLoggedIn}) {
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: inView ? 0 : 100, opacity: inView ? 1 : 0 }}
                     transition={{ type: "spring", stiffness: 120, duration: 0.5, delay: 0.2}}
-                
-                
-                className="text-xl pattern" style={textContainerStyle}>
+                    className="text-xl pattern" style={textContainerStyle}
+                >
                     {renderText()}
                 </motion.p>
 
                 <motion.div
-                ref={ref}
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: inView ? 0 : 100, opacity: inView ? 1 : 0 }}
-                transition={{ type: "spring", stiffness: 120, duration: 0.5, delay: 0.4}}
-                
+                    ref={ref}
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: inView ? 0 : 100, opacity: inView ? 1 : 0 }}
+                    transition={{ type: "spring", stiffness: 120, duration: 0.5, delay: 0.4}}
                 >
                     <Textarea
-                    className="textarea resize-none h-[200px] text-xl"
-                    onChange={handleTextChange}
-                    placeholder={currentText}
-                    disabled={progress >= 100}
-                    
+                        className="textarea resize-none h-[200px] text-xl"
+                        onChange={handleTextChange}
+                        placeholder={currentText}
+                        disabled={progress >= 100}
                     />
                 </motion.div>
 
                 <motion.p 
-                ref={ref}
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: inView ? 0 : 100, opacity: inView ? 1 : 0 }}
-                transition={{ type: "spring", stiffness: 120, duration: 0.5, delay: 0.6}}
-                
-                className="text-lg">Uplynulý čas: {formatTime(timeElapsed)}</motion.p>
-
+                    ref={ref}
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: inView ? 0 : 100, opacity: inView ? 1 : 0 }}
+                    transition={{ type: "spring", stiffness: 120, duration: 0.5, delay: 0.6}}
+                    className="text-lg"
+                >
+                    Uplynulý čas: {formatTime(timeElapsed)}
+                </motion.p>
             </div>
         </div>
     );
