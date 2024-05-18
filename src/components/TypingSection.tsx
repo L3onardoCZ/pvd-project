@@ -15,7 +15,7 @@ export default function TypingSection({isLoggedIn}) {
 
     axios.defaults.withCredentials = true;
 
-    /* tohle si kdyžtak zakomentářuj 
+    /* tohle si kdyžtak zakomentářuj */
     const router = useRouter();
 
     useEffect(() => {
