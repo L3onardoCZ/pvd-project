@@ -15,13 +15,12 @@ import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import axios from "axios";
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 
 export default function AccountSettingsPage({isLoggedIn, jmeno, prijmeni}) {
 
     useEffect(() => {
-      axios.post("http://localhost/pvd-project/server/image_load.php")
+      axios.post("https://vojtechreiss.com/pvd-project/server/image_load.php")
         .then(function(response) {
           if(response.data != false) {
             setCestaKObrazku(response.data);
@@ -37,7 +36,7 @@ export default function AccountSettingsPage({isLoggedIn, jmeno, prijmeni}) {
     axios.defaults.withCredentials = true;
 
     const handleLogout = () => {
-        axios.post("http://localhost/pvd-project/server/logout.php")
+        axios.post("https://vojtechreiss.com/pvd-project/server/logout.php")
             .then(function(response) {
                 window.location.reload();
             })
@@ -52,7 +51,7 @@ export default function AccountSettingsPage({isLoggedIn, jmeno, prijmeni}) {
     <Dialog>
       <DialogTrigger asChild>
         <Avatar>
-            <AvatarImage className="cursor-pointer" src={(cestaKObrazku == "" ? "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" : "http://localhost/pvd-project" + cestaKObrazku)} />
+            <AvatarImage className="cursor-pointer" src={(cestaKObrazku == "" ? "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" : "https://vojtechreiss.com/pvd-project" + cestaKObrazku)} />
             <AvatarFallback className="cursor-pointer" style={{fontSize: '10px'}}>Avatar</AvatarFallback>
         </Avatar>
       </DialogTrigger>

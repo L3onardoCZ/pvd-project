@@ -132,7 +132,7 @@ export default function TypingSection({isLoggedIn}) {
             "wpm": wpm
         };
 
-        axios.post("http://localhost/pvd-project/server/stats_upload.php", data)
+        axios.post("https://vojtechreiss.com/pvd-project/server/stats_upload.php", data)
             .then(function(response) {
                 console.log(response.data);
             })

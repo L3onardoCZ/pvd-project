@@ -33,7 +33,7 @@ export default function RegisterPage() {
       "prijmeni": prijmeni
     }
 
-    axios.post("http://localhost/pvd-project/server/register.php", data)
+    axios.post("https://vojtechreiss.com/pvd-project/server/register.php", data)
       .then(function(response) {
         console.log(response.data);
         setShowSuccess(false);

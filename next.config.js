@@ -1,12 +1,4 @@
 module.exports = {
-    images: {
-      remotePatterns: [
-        {
-          protocol: 'https',
-          hostname: 'aceternity.com',
-          port: '',
-          pathname: '/images/**',
-        },
-      ],
-    },
+    output: 'export',
+    //basePath: '/pvd-project',
   }

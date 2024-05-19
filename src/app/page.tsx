@@ -10,7 +10,6 @@ import CardSection from "../components/CardSection";
 import Typography from "../components/Typography";
 import axios from "axios";
 import HeroParallaxDemo from "@/components/HeroParallax";
-import { useRouter } from 'next/router';
 
 
 export default function Home() {
@@ -19,7 +18,7 @@ export default function Home() {
   const[prijmeni, setPrijmeni] = useState("");
   const[jmeno, setJmeno] = useState();
     useEffect(() => {
-        axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
+        axios.post("https://vojtechreiss.com/pvd-project/server/isLoggedIn.php")
             .then(function(response) {
                 console.log(response.data.boolean);
                 setIsLoggedIn(response.data.boolean);
