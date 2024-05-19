@@ -5,16 +5,27 @@ import AccountTab from "./AccountTab"
 import Leaderboard from "./Leaderboard"
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
-
-import {
-    Avatar,
-    AvatarFallback,
-    AvatarImage,
-  } from "@/components/ui/avatar"
-   
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 
 export default function Dashboard({isLoggedIn}){
+
+    const[topWpm, setTopWpm] = useState();
+    const[exercises, setExercises] = useState();
+
+    useEffect(() => {
+        axios.post("http://localhost/pvd-project/server/stats_load.php")
+            .then(function(response) {
+                console.log(response.data);
+                setTopWpm(response.data.maxWpm);
+                setExercises(response.data.pocetCviceni);
+            })
+            .catch(function(error) {
+                console.error(error);
+            })
+    }, [])
+
     const [ref, inView] = useInView({
         triggerOnce: true,
         threshold: 0.5,
@@ -30,17 +41,13 @@ export default function Dashboard({isLoggedIn}){
                 transition={{ type: "spring", stiffness: 120, duration: 0.5}}
             
             className="w-full flex justify-center gap-8">
-                <p>Placement</p>
-                <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-                    2
-                </h1>
                 <p>Top WPM</p>
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-                    350
+                    {topWpm}
                 </h1>
                 <p>Excercises</p>
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-                    24
+                    {exercises}
                 </h1>
             </motion.div>
             <motion.div 

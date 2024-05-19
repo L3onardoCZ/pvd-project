@@ -6,6 +6,7 @@ import TypingSection from "@/components/TypingSection";
 import axios from "axios";
 import ScrollBar from "@/components/ScrollBar";
 import { useState, useEffect } from "react";
+import Dashboard from "@/components/Dashboard";
 
 
 export default function typing(){
@@ -14,7 +15,7 @@ export default function typing(){
     const[prijmeni, setPrijmeni] = useState("");
     const[jmeno, setJmeno] = useState();
         useEffect(() => {
-            axios.post("https://vojtechreiss.com/pvd-project/server/isLoggedIn.php")
+            axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
                 .then(function(response) {
                     console.log(response.data.boolean);
                     setIsLoggedIn(response.data.boolean);

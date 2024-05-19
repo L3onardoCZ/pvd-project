@@ -36,7 +36,7 @@ export default function LoginPage({isLoggedIn, jmeno, prijmeni}) {
       "heslo": heslo
     }
     
-    axios.post("https://vojtechreiss.com/pvd-project/server/login.php", data)
+    axios.post("http://localhost/pvd-project/server/login.php", data)
     .then(function(response) {
         console.log(response.data);
         if(response.data !== false) {

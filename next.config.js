@@ -1,5 +1,5 @@
 module.exports = {
-    output: 'export',
+    //output: 'export',
     //basePath: '/pvd-project',
 
     images: {

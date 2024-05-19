@@ -128,11 +128,11 @@ export default function TypingSection({isLoggedIn}) {
         let wpm = (100 / (timeElapsed / 6000)).toFixed(2);
 
         let data = {
-            "timeElapsed": timeElapsed,
+            "timeElapsed": timeElapsed / 6000,
             "wpm": wpm
         };
 
-        axios.post("https://vojtechreiss.com/pvd-project/server/stats_upload.php", data)
+        axios.post("http://localhost/pvd-project/server/stats_upload.php", data)
             .then(function(response) {
                 console.log(response.data);
             })

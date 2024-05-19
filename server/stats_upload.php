@@ -16,7 +16,7 @@ if(isset($data["timeElapsed"]) && isset($data["wpm"]) && isset($_SESSION['idUziv
 
     $idUzivatel = $_SESSION['idUzivatel'];
 
-    $timeElapsed = $data["timeElapsed"];
+    $timeElapsed = round($data["timeElapsed"], 2);
     $wpm = $data["wpm"];
 
     include("db_connect.php");
@@ -28,6 +28,9 @@ if(isset($data["timeElapsed"]) && isset($data["wpm"]) && isset($_SESSION['idUziv
     } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
     }
+
+    $sql = "UPDATE uzivatele SET pocetCviceniuzivatel = pocetCviceniUzivatel + 1 WHERE idUzivatel='$idUzivatel'";
+    $conn->query($sql);
 
     $conn->close();
 } else json_encode("Něco se pokazilo.");

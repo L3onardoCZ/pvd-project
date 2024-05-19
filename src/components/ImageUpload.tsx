@@ -28,7 +28,7 @@ export default function ImageUpload() {
     let base64Image = selectedImage.split(';base64,').pop();
 
     // Odeslání obrázku na server
-    axios.post("https://vojtechreiss.com/pvd-project/server/image_upload.php", { "image": base64Image, "fileExtension": fileExtension })
+    axios.post("http://localhost/pvd-project/server/image_upload.php", { "image": base64Image, "fileExtension": fileExtension })
       .then(response => {
         if (response.status === 200) {
           console.log('Image uploaded successfully');
@@ -43,7 +43,7 @@ export default function ImageUpload() {
   }
 
   const deleteImage = () => {
-    axios.post("https://vojtechreiss.com/pvd-project/server/image_delete.php")
+    axios.post("http://localhost/pvd-project/server/image_delete.php")
       .then(function(response) {
         console.log(response.data);
         window.location.reload();

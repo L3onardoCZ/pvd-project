@@ -47,7 +47,7 @@ export default function AccountTab({isLoggedIn}) {
 
   useEffect(() => {
 
-    axios.post("https://vojtechreiss.com/pvd-project/server/account_load.php")
+    axios.post("http://localhost/pvd-project/server/account_load.php")
       .then(function(response) {
         setAktualniJmeno(response.data.jmeno);
         setAktualniPrijmeni(response.data.prijmeni);
@@ -72,7 +72,7 @@ export default function AccountTab({isLoggedIn}) {
   }, [aktualniJmeno, aktualniPrijmeni, aktualniEmail])
 
   const handleLogout = () => {
-    axios.post("https://vojtechreiss.com/pvd-project/server/logout.php")
+    axios.post("http://localhost/pvd-project/server/logout.php")
         .then(function(response) {
             window.location.reload();
         })
@@ -91,7 +91,7 @@ export default function AccountTab({isLoggedIn}) {
       "email": novyEmail
     }
 
-    axios.post("https://vojtechreiss.com/pvd-project/server/account_change.php", data)
+    axios.post("http://localhost/pvd-project/server/account_change.php", data)
       .then(function(response) {
         console.log(response.data);
         if(response.data != false && response.data != "email") {
@@ -116,7 +116,7 @@ export default function AccountTab({isLoggedIn}) {
         "noveHeslo": noveHeslo
       }
       
-      axios.post("https://vojtechreiss.com/pvd-project/server/password_change.php", data)
+      axios.post("http://localhost/pvd-project/server/password_change.php", data)
         .then(function(response) {
           console.log(response.data);
           if(response.data != true) {

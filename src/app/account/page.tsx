@@ -15,7 +15,7 @@ export default function Account(){
     const[prijmeni, setPrijmeni] = useState("");
     const[jmeno, setJmeno] = useState();
         useEffect(() => {
-            axios.post("https://vojtechreiss.com/pvd-project/server/isLoggedIn.php")
+            axios.post("http://localhost/pvd-project/server/isLoggedIn.php")
                 .then(function(response) {
                     console.log(response.data.boolean);
                     setIsLoggedIn(response.data.boolean);
