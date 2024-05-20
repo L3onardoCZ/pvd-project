@@ -33,6 +33,8 @@ export default function TypingSection({isLoggedIn}) {
     const [currentText, setCurrentText] = useState<string>(""); 
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+    const[isVisible, setIsVisible] = useState(false);
+
     useEffect(() => {
         const randomIndex: number = Math.floor(Math.random() * texts.length);
         setCurrentText(texts[randomIndex]);
@@ -125,20 +127,25 @@ export default function TypingSection({isLoggedIn}) {
     });
 
     const zapsatVysledek = () => {
-        let wpm = (100 / (timeElapsed / 6000)).toFixed(2);
+        
+        if(timeElapsed != 0) {
+            let wpm = (100 / (timeElapsed / 6000)).toFixed(2);
+            let data = {
+                "timeElapsed": timeElapsed / 6000,
+                "wpm": wpm
+            };
 
-        let data = {
-            "timeElapsed": timeElapsed / 6000,
-            "wpm": wpm
-        };
-
-        axios.post("http://localhost/pvd-project/server/stats_upload.php", data)
-            .then(function(response) {
-                console.log(response.data);
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+            axios.post("http://localhost/pvd-project/server/stats_upload.php", data)
+                .then(function(response) {
+                    console.log(response.data);
+                    setIsVisible(true);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                    setIsVisible(true);
+                    alert("Nelze se připojit k serveru.");
+                });
+        } else setIsVisible(true);
     };
 
     return (
@@ -186,7 +193,9 @@ export default function TypingSection({isLoggedIn}) {
                 >
                     Uplynulý čas: {formatTime(timeElapsed)}
                 </motion.p>
+                {isVisible && ((timeElapsed == 0) ? <p>Nepodváděj!</p> : <p>WPM: {(100 / (timeElapsed / 6000)).toFixed(2)}</p>)}
             </div>
+            
         </div>
     );
 }

@@ -24,9 +24,9 @@ if(isset($data["timeElapsed"]) && isset($data["wpm"]) && isset($_SESSION['idUziv
     $sql = "INSERT INTO `stats`(`idUzivatel`, `wpm`, `cas`) VALUES ('$idUzivatel','$wpm','$timeElapsed')";
 
     if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
+    echo json_encode("Data byla úspěšně zapsána do databáze.");
     } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo json_encode("Error: " . $sql . "<br>" . $conn->error);
     }
 
     $sql = "UPDATE uzivatele SET pocetCviceniuzivatel = pocetCviceniUzivatel + 1 WHERE idUzivatel='$idUzivatel'";
