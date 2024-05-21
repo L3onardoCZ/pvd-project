@@ -27,9 +27,18 @@ if(isset($_SESSION['idUzivatel'])) {
         $maxWpm = $row["wpm"];
     } else $maxWpm = 0;
 
+    $sql = "SELECT AVG(wpm) AS wpm FROM `stats` WHERE idUzivatel='$idUzivatel'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    if(isset($row["wpm"])) {
+        $avgWpm = $row["wpm"];
+    } else $avgWpm = 0;
+
+
+
     $conn->close();
 
-    $data = array("pocetCviceni" => $pocetCviceni, "maxWpm" => $maxWpm);
+    $data = array("pocetCviceni" => $pocetCviceni, "maxWpm" => $maxWpm, "avgWpm" => $avgWpm);
 
     echo json_encode($data);
 }

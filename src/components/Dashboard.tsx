@@ -13,6 +13,7 @@ export default function Dashboard({isLoggedIn}){
 
     const[topWpm, setTopWpm] = useState();
     const[exercises, setExercises] = useState();
+    const[avgWpm, setAvgWpm] = useState();
 
     useEffect(() => {
         axios.post("http://localhost/pvd-project/server/stats_load.php")
@@ -20,6 +21,7 @@ export default function Dashboard({isLoggedIn}){
                 console.log(response.data);
                 setTopWpm(response.data.maxWpm);
                 setExercises(response.data.pocetCviceni);
+                setAvgWpm(response.data.avgWpm);
             })
             .catch(function(error) {
                 console.error(error);
@@ -44,6 +46,10 @@ export default function Dashboard({isLoggedIn}){
                 <p>Top WPM</p>
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                     {topWpm}
+                </h1>
+                <p>Avarge WPM</p>
+                <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+                    {avgWpm}
                 </h1>
                 <p>Excercises</p>
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
