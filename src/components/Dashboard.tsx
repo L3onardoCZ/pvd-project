@@ -47,12 +47,11 @@ export default function Dashboard({isLoggedIn}){
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                     {topWpm}
                 </h1>
-                <p>Počet cvičení:</p>
-                <p>Avarge WPM</p>
+                <p>Průměrné WPM</p>
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                     {avgWpm}
                 </h1>
-                <p>Excercises</p>
+                <p>Počet cvičení</p>
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                     {exercises}
                 </h1>
