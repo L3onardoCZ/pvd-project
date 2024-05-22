@@ -24,7 +24,7 @@ if(isset($_SESSION['idUzivatel'])) {
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     if(isset($row["wpm"])) {
-        $maxWpm = $row["wpm"];
+        $maxWpm = round($row["wpm"], 2);
     } else $maxWpm = 0;
 
     $sql = "SELECT AVG(wpm) AS wpm FROM `stats` WHERE idUzivatel='$idUzivatel'";
