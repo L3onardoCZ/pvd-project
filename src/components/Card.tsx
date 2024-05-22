@@ -19,9 +19,9 @@ const Card: React.FC<CardProps> = ({ heading, paragraph }) => {
 
   return (
     <motion.div 
-    ref={ref}
+            ref={ref}
             initial={{y: 100, opacity: 0 }}
-            animate={{y: inView ? 0 : 100,opacity: inView ? 1 : 0 }}
+            animate={{y: inView ? 0 : 100,opacity: inView ? 1 : 0}}
             transition={{ type: "spring", stiffness: 100, duration: 0.5 }}
     
     className="div">
