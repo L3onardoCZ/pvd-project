@@ -37,7 +37,6 @@ export default function Home() {
       <Header isLoggedIn={isLoggedIn} jmeno={jmeno} prijmeni={prijmeni}/>
       <Typography />
       <CardSection />
-      <HeroParallaxDemo />
       <Footer />
       <BackgroundLetters />
 
