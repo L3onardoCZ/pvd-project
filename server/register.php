@@ -24,7 +24,8 @@ $prijmeni = strtolower($prijmeni);
 $prijmeni = ucfirst($prijmeni);
 
 $email = trim($data["email"]);
-$heslo = password_hash($data["heslo"], PASSWORD_DEFAULT);
+$heslo = trim($data["heslo"]);
+$heslo = password_hash($heslo, PASSWORD_DEFAULT);
 
 $stmt->execute();
 
@@ -37,9 +38,9 @@ $conn->close();
 
 
 
-if(!empty($data["jmeno"]) && !empty($data["prijmeni"]) && !empty($data["email"]) && !empty($data["heslo"]) && !isset($row["emailUzivatel"])) {
-    
-    include("db_connect.php");
+if(!empty($jmeno) && !empty($prijmeni) && !empty($email) && !empty($heslo)) {
+   if(!isset($row["emailUzivatel"])) {
+     include("db_connect.php");
     
     // Create connection
    $stmt = $conn->prepare("INSERT INTO `uzivatele` (`idUzivatel`, `jmenoUzivatel`, `prijmeniUzivatel`, `emailUzivatel`, `hesloUzivatel`) VALUES (NULL, ?, ?, ?, ?)");
@@ -50,6 +51,7 @@ if(!empty($data["jmeno"]) && !empty($data["prijmeni"]) && !empty($data["email"])
 
     $stmt->close();
     $conn->close();
-} else echo false;
+   } else echo json_encode("prazdne");
+} else echo json_encode(false);
 
 ?>

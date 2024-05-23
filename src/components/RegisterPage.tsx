@@ -24,6 +24,7 @@ export default function RegisterPage() {
 
   const[showSuccess, setShowSuccess] = useState(false);
   const[showError, setShowError] = useState(false);
+  const[showEmptyError, setShowEmptyError] = useState(false);
   
   const handleRegistrace = () => {
     let data = {
@@ -38,7 +39,11 @@ export default function RegisterPage() {
         console.log(response.data);
         setShowSuccess(false);
         setShowError(false);
-        (response.data != false) ? setShowSuccess(true) : setShowError(true);
+        if(response.data == false) {
+          setShowEmptyError(true);
+        } else if(response.data == "prazdne") {
+          setShowError(true);
+        } else setShowSuccess(true);
       })
       .catch(function(error) {
         console.error(error);
@@ -67,7 +72,7 @@ export default function RegisterPage() {
               placeholder="jan.novak@gmail.com"
               className="col-span-3"
               type="e-mail"
-              onChange={(event) => {setEmail(event.target.value); setShowError(false); setShowSuccess(false)}}
+              onChange={(event) => {setEmail(event.target.value); setShowError(false); setShowSuccess(false); setShowEmptyError(false)}}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -79,7 +84,7 @@ export default function RegisterPage() {
               placeholder="Heslo"
               className="col-span-3"
               type="password"
-              onChange={(event) => {setHeslo(event.target.value); setShowError(false); setShowSuccess(false)}}
+              onChange={(event) => {setHeslo(event.target.value); setShowError(false); setShowSuccess(false); setShowEmptyError(false)}}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -91,7 +96,7 @@ export default function RegisterPage() {
               placeholder="Jan"
               className="col-span-3"
               type="text"
-              onChange={(event) => {setJmeno(event.target.value); setShowError(false); setShowSuccess(false)}}
+              onChange={(event) => {setJmeno(event.target.value); setShowError(false); setShowSuccess(false); setShowEmptyError(false)}}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -103,11 +108,12 @@ export default function RegisterPage() {
               placeholder="Novák"
               className="col-span-3"
               type="text"
-              onChange={(event) => {setPrijmeni(event.target.value); setShowError(false); setShowSuccess(false)}}
+              onChange={(event) => {setPrijmeni(event.target.value); setShowError(false); setShowSuccess(false); setShowEmptyError(false)}}
             />
           </div>
           {showSuccess && <p className="text-lime-500">Registrace proběhla úspěšně. Nyní zavřete okno registrace a přihlaste se.</p>}
           {showError && <p className="text-red-500">Účet s tímto e-mailovým účtem již existuje. Zkuste prosím jiný e-mail.</p>}
+          {showEmptyError && <p className="text-red-500">Údaje nemohou být prázdné, zkuste to prosím znovu.</p>}
         </div>
         <DialogFooter>
           <Button className="" onClick={handleRegistrace}>Zaregistrovat se</Button>
