@@ -24,6 +24,7 @@ $prijmeni = strtolower($prijmeni);
 $prijmeni = ucfirst($prijmeni);
 
 $email = trim($data["email"]);
+$nezasifrovaneHeslo = trim($data["heslo"]);
 $heslo = trim($data["heslo"]);
 $heslo = password_hash($heslo, PASSWORD_DEFAULT);
 
@@ -38,7 +39,7 @@ $conn->close();
 
 
 
-if(!empty($jmeno) && !empty($prijmeni) && !empty($email) && !empty($heslo)) {
+if(!empty($jmeno) && !empty($prijmeni) && !empty($email) && !empty($nezasifrovaneHeslo)) {
    if(!isset($row["emailUzivatel"])) {
      include("db_connect.php");
     

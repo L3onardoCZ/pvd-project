@@ -71,7 +71,7 @@ export default function RegisterPage() {
               id="e-mail"
               placeholder="jan.novak@gmail.com"
               className="col-span-3"
-              type="e-mail"
+              type="email"
               onChange={(event) => {setEmail(event.target.value); setShowError(false); setShowSuccess(false); setShowEmptyError(false)}}
             />
           </div>
