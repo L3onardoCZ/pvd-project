@@ -15,7 +15,7 @@ if(isset($_SESSION['idUzivatel'])) {
 
     include("db_connect.php");
 
-    $sql = "SELECT pocetCviceniUzivatel FROM uzivatele";
+    $sql = "SELECT pocetCviceniUzivatel FROM uzivatele WHERE idUzivatel='$idUzivatel'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $pocetCviceni = $row["pocetCviceniUzivatel"];
