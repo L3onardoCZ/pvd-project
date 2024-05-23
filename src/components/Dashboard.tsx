@@ -43,15 +43,15 @@ export default function Dashboard({isLoggedIn}){
                 transition={{ type: "spring", stiffness: 120, duration: 0.5}}
             
             className="w-full flex justify-center gap-8">
-                <p>Top WPM</p>
+                <p>Největší WPM:</p>
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                     {topWpm}
                 </h1>
-                <p>Avarge WPM</p>
+                <p>Průměrné WPM</p>
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                     {avgWpm}
                 </h1>
-                <p>Excercises</p>
+                <p>Počet cvičení</p>
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                     {exercises}
                 </h1>

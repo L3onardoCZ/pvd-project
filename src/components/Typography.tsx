@@ -8,19 +8,19 @@ import { motion } from "framer-motion";
 export default function Typography() {
   const [ref1, inView1] = useInView({
     triggerOnce: false,
-    threshold: 1,
+    threshold: 0.8,
   });
   const [ref2, inView2] = useInView({
     triggerOnce: false,
-    threshold: 1,
+    threshold: 0.8,
   });
   const [ref3, inView3] = useInView({
     triggerOnce: false,
-    threshold: 1,
+    threshold: 0.8,
   });
   const [ref4, inView4] = useInView({
     triggerOnce: false,
-    threshold: 1,
+    threshold: 0.8,
   });
 
   return (
@@ -31,7 +31,7 @@ export default function Typography() {
             ref={ref1}
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: inView1 ? 0 : -100, opacity: inView1 ? 1 : 0 }}
-            transition={{ type: "spring", stiffness: 120, duration: 2, bounce: 0.05 }}
+            transition={{ type: "spring", stiffness: 60, damping: 20, duration: 0.5}}
             className="textLeft h-32 text-right p-8"
           >
             <h3 className="font-bold">Trénink psaní s projektem „ABC“</h3>
@@ -43,7 +43,7 @@ export default function Typography() {
             ref={ref2}
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: inView2 ? 0 : 100, opacity: inView2 ? 1 : 0 }}
-            transition={{ type: "spring", stiffness: 120, duration: 2, bounce: 0.05 }}
+            transition={{ type: "spring", stiffness: 60, damping: 20, duration: 0.5}}
             className="textRight mt-40 h-32 p-8"
           >
             <h3 className="font-bold">Náš projekt „ABC“: Cesta k efektivnímu tréninku psaní</h3>
@@ -59,7 +59,7 @@ export default function Typography() {
             ref={ref3}
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: inView3 ? 0 : -100, opacity: inView3 ? 1 : 0 }}
-            transition={{ type: "spring", stiffness: 120, duration: 2, bounce: 0.05 }}
+            transition={{ type: "spring", stiffness: 60, damping: 20, duration: 0.5}}
             className="textLeft h-32 text-right p-8"
           >
             <h3 className="font-bold">Jak začít s projektem ABC</h3>
@@ -71,7 +71,7 @@ export default function Typography() {
             ref={ref4}
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: inView4 ? 0 : 100, opacity: inView4 ? 1 : 0 }}
-            transition={{ type: "spring", stiffness: 120, duration: 2, bounce: 0.05 }}
+            transition={{ type: "spring", stiffness: 60, damping: 20, duration: 0.5}}
             className="textRight mt-40 h-32 p-8"
           >
             <h3 className="font-bold">Funkce a výhody projektu „ABC“</h3>

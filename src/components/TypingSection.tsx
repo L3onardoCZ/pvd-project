@@ -128,7 +128,7 @@ export default function TypingSection({isLoggedIn}) {
 
     const zapsatVysledek = () => {
         
-        if(timeElapsed != 0) {
+        if((100 / (timeElapsed / 6000)).toFixed(2) <= 300) {
             let wpm = (100 / (timeElapsed / 6000)).toFixed(2);
             let data = {
                 "timeElapsed": timeElapsed / 6000,
@@ -193,7 +193,7 @@ export default function TypingSection({isLoggedIn}) {
                 >
                     Uplynulý čas: {formatTime(timeElapsed)}
                 </motion.p>
-                {isVisible && ((timeElapsed == 0) ? <p>Nepodváděj!</p> : <p>WPM: {(100 / (timeElapsed / 6000)).toFixed(2)}</p>)}
+                {isVisible && (((100 / (timeElapsed / 6000)).toFixed(2) > 300) ? <p>Nepodváděj!</p> : <p>WPM: {(100 / (timeElapsed / 6000)).toFixed(2)}</p>)}
             </div>
             
         </div>
