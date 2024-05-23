@@ -15,15 +15,15 @@ $stmt->bind_param("s", $email);
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-$jmeno = $data["jmeno"];
+$jmeno = trim($data["jmeno"]);
 $jmeno = strtolower($jmeno);
 $jmeno = ucfirst($jmeno);
 
-$prijmeni = $data["prijmeni"];
+$prijmeni = trim($data["prijmeni"]);
 $prijmeni = strtolower($prijmeni);
 $prijmeni = ucfirst($prijmeni);
 
-$email = $data["email"];
+$email = trim($data["email"]);
 $heslo = password_hash($data["heslo"], PASSWORD_DEFAULT);
 
 $stmt->execute();
