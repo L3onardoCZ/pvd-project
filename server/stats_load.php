@@ -31,7 +31,7 @@ if(isset($_SESSION['idUzivatel'])) {
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     if(isset($row["wpm"])) {
-        $avgWpm = $row["wpm"];
+        $avgWpm = round($row["wpm"], 2);
     } else $avgWpm = 0;
 
 
