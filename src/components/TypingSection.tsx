@@ -13,6 +13,10 @@ import axios from "axios";
 
 export default function TypingSection({isLoggedIn}) {
 
+    const handleReload = () => {
+        window.location.reload();
+    }
+
     axios.defaults.withCredentials = true;
 
     /* tohle si kdyžtak zakomentářuj */
@@ -141,7 +145,7 @@ export default function TypingSection({isLoggedIn}) {
                     setIsVisible(true);
                 })
                 .catch(function(error) {
-                    console.log(error);
+                    console.error(error);
                     setIsVisible(true);
                     alert("Nelze se připojit k serveru.");
                 });
@@ -194,6 +198,8 @@ export default function TypingSection({isLoggedIn}) {
                     Uplynulý čas: {formatTime(timeElapsed)}
                 </motion.p>
                 {isVisible && (((100 / (timeElapsed / 6000)).toFixed(2) > 300) ? <p>Nepodváděj!</p> : <p>WPM: {(100 / (timeElapsed / 6000)).toFixed(2)}</p>)}
+
+                {isVisible && <button onClick={handleReload}>Další text</button>}
             </div>
             
         </div>

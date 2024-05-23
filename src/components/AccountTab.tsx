@@ -54,7 +54,7 @@ export default function AccountTab({isLoggedIn}) {
         setAktualniEmail(response.data.email);
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       })
   }, []);
 
@@ -77,7 +77,7 @@ export default function AccountTab({isLoggedIn}) {
             window.location.reload();
         })
         .catch(function(error) {
-            console.log(error);
+            console.error(error);
             alert("Nelze se připojit k serveru. Zkuste to prosím později.");
             window.location.reload();
         })
@@ -102,7 +102,7 @@ export default function AccountTab({isLoggedIn}) {
         } else setShowError(true);
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
         alert("Nelze se připojit k serveru.");
         window.location.reload();
       })
@@ -129,7 +129,7 @@ export default function AccountTab({isLoggedIn}) {
           }
         })
         .catch(function(error) {
-          console.log(error);
+          console.error(error);
           alert("Nelze se připojit k serveru. Zkuste to prosím později.");
         })
     } else setShowPassword1Error(true);

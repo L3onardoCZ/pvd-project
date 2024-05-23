@@ -23,7 +23,7 @@ export default function Account(){
                     setPrijmeni(response.data.prijmeni);
                 })
                 .catch(function(error) {
-                    console.log(error);
+                    console.error(error);
                     setIsLoggedIn(false);
                 })
         }, []);
@@ -33,7 +33,7 @@ export default function Account(){
             <title>Account</title>
             <ScrollBar/>
             <SmallHeader isLoggedIn={isLoggedIn} jmeno={jmeno} prijmeni={prijmeni}/>
-            <Dashboard isLoggedIn={isLoggedIn}/>
+            <Dashboard isLoggedIn={isLoggedIn} jmeno={jmeno} prijmeni={prijmeni}/>
             <SmallFooter/>
         </>
     )

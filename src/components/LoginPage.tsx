@@ -46,7 +46,7 @@ export default function LoginPage({isLoggedIn, jmeno, prijmeni}) {
         }
     })
     .catch(function(error) {
-        console.log(error);
+        console.error(error);
         alert("Nelze se připojit k serveru, zkuste to prosím později.");
         window.location.reload();
     })

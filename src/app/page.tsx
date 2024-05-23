@@ -26,7 +26,7 @@ export default function Home() {
                 setPrijmeni(response.data.prijmeni);
             })
             .catch(function(error) {
-                console.log(error);
+                console.error(error);
                 setIsLoggedIn(false);
             })
       }, []);

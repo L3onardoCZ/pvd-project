@@ -41,7 +41,7 @@ export default function RegisterPage() {
         (response.data != false) ? setShowSuccess(true) : setShowError(true);
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       })
   }
   

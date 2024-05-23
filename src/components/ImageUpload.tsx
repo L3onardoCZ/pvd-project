@@ -49,7 +49,7 @@ export default function ImageUpload() {
         window.location.reload();
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       })
   }
 

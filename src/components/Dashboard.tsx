@@ -2,14 +2,13 @@
 "use client"
 
 import AccountTab from "./AccountTab"
-import Leaderboard from "./Leaderboard"
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 
-export default function Dashboard({isLoggedIn}){
+export default function Dashboard({isLoggedIn, jmeno, prijmeni}){
 
     const[topWpm, setTopWpm] = useState();
     const[exercises, setExercises] = useState();
@@ -65,7 +64,6 @@ export default function Dashboard({isLoggedIn}){
             
             className="w-full flex justify-center gap-8 mt-8">
                 <AccountTab isLoggedIn={isLoggedIn}/>
-                <Leaderboard/>
             </motion.div>
         </>
     )

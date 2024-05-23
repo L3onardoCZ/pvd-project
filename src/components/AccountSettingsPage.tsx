@@ -27,7 +27,7 @@ export default function AccountSettingsPage({isLoggedIn, jmeno, prijmeni}) {
           }
         })
         .catch(function(error) {
-          console.log(error);
+          console.error(error);
         })
     }, []);
 
@@ -41,7 +41,7 @@ export default function AccountSettingsPage({isLoggedIn, jmeno, prijmeni}) {
                 window.location.reload();
             })
             .catch(function(error) {
-                console.log(error);
+                console.error(error);
                 alert("Nelze se připojit k serveru. Zkuste to prosím později.");
                 window.location.reload();
             })
